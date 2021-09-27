@@ -56,7 +56,7 @@
 	
 * 	[add Greeting Generator class]
 * 	javac GreetingGenerator.java
-* 	javac Main.java
+* 	javac -cp . Main.java
 * 	java -cp . Main
 * 	jar cfe hello-world.jar Main Main.class GreetingGenerator.class
 * 	java -jar hello-world.jar
