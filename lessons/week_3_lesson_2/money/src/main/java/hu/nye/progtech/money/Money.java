@@ -1,18 +1,24 @@
 package hu.nye.progtech.money;
 
+import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Objects;
 
 public class Money {
 
-    public double value;
-    public Currency currency;
+    private BigDecimal value;
+    private Currency currency;
 
     public Money(double value, Currency currency) {
+        this(new BigDecimal(value), currency);
+    }
+
+    public Money(BigDecimal value, Currency currency) {
         this.value = value;
         this.currency = currency;
     }
 
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
@@ -20,27 +26,36 @@ public class Money {
         return currency;
     }
 
-    public Money add(Money moneyzToGiveMeh) {
-        // Convert
-        if (!this.currency.equals(moneyzToGiveMeh.getCurrency())) { // If the two currency does not match
-            if (this.getCurrency().equals(Currency.getInstance("USD")) && moneyzToGiveMeh.getCurrency().equals(Currency.getInstance("HUF")))
-                moneyzToGiveMeh = new Money(moneyzToGiveMeh.value *0.0034, Currency.getInstance("USD"));
-            else if (this.getCurrency().equals(Currency.getInstance("HUF")) && moneyzToGiveMeh.getCurrency().equals(Currency.getInstance("USD")))
-                moneyzToGiveMeh = new Money(moneyzToGiveMeh.value *249.3, Currency.getInstance("HUF"));
-            else return null;
+    public Money add(Money moneyToAdd, Bank bank) {
+        if (!isInTheSameCurrency(moneyToAdd)) {
+            moneyToAdd = bank.convertTo(moneyToAdd, this.currency);
         }
-        this.value += moneyzToGiveMeh.getValue(); // Add value of the parameter to this.val
+        this.value = value.add(moneyToAdd.getValue());
         return this;
     }
 
-    public Integer compareTo(Money m) {
-        if (!this.currency.equals(m.getCurrency())) {
-            if (this.getCurrency().equals(Currency.getInstance("USD")) && m.getCurrency().equals(Currency.getInstance("HUF")))
-                m = new Money(m.value *0.0034, Currency.getInstance("USD"));
-            else if (this.getCurrency().equals(Currency.getInstance("HUF")) && m.getCurrency().equals(Currency.getInstance("USD")))
-                m = new Money(m.value *249.3, Currency.getInstance("HUF"));
-            else return null;
-        }
-        return Double.compare(this.getValue(), m.getValue());
+    private boolean isInTheSameCurrency(Money money) {
+        return this.currency.equals(money.getCurrency());
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "value=" + value +
+                ", currency=" + currency +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return Objects.equals(value, money.value) && Objects.equals(currency, money.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, currency);
     }
 }
