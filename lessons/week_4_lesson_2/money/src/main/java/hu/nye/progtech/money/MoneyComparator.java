@@ -1,5 +1,6 @@
 package hu.nye.progtech.money;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 
 public class MoneyComparator implements Comparator<Money> {
@@ -12,7 +13,9 @@ public class MoneyComparator implements Comparator<Money> {
 
     @Override
     public int compare(Money money1, Money money2) {
-        money2 = bank.convertTo(money2, money1.getCurrency());
-        return money1.getValue().compareTo(money2.getValue());
+        BigDecimal exchangeRate = bank.getExchangeRate(money2.getCurrency(), money1.getCurrency());
+        BigDecimal convertedValue = money2.getValue().multiply(exchangeRate);
+
+        return money1.getValue().compareTo(convertedValue);
     }
 }

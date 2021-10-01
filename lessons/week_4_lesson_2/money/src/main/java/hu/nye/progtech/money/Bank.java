@@ -1,9 +1,10 @@
 package hu.nye.progtech.money;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public interface Bank {
 
-    Money convertTo(Money moneyToConvert, Currency toCurrency);
+    BigDecimal getExchangeRate(Currency fromCurrency, Currency toCurrency);
 
 }

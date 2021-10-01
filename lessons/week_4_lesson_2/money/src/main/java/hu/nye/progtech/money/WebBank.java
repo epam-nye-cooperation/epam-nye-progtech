@@ -1,11 +1,12 @@
 package hu.nye.progtech.money;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class WebBank implements Bank {
 
     @Override
-    public Money convertTo(Money moneyToConvert, Currency toCurrency) {
+    public BigDecimal getExchangeRate(Currency fromCurrency, Currency toCurrency) {
         // TODO Implement this web based functionality
         return null;
     }

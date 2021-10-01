@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Money {
 
-    private BigDecimal value;
-    private Currency currency;
+    private final BigDecimal value;
+    private final Currency currency;
 
     public Money(double value, Currency currency) {
         this(new BigDecimal(value), currency);
@@ -27,11 +27,11 @@ public class Money {
     }
 
     public Money add(Money moneyToAdd, Bank bank) {
-        if (!isInTheSameCurrency(moneyToAdd)) {
-            moneyToAdd = bank.convertTo(moneyToAdd, this.currency);
-        }
-        this.value = value.add(moneyToAdd.getValue());
-        return this;
+        BigDecimal exchangeRate = bank.getExchangeRate(moneyToAdd.currency, this.currency);
+        BigDecimal convertedMoneyToAdd = moneyToAdd.getValue().multiply(exchangeRate);
+        BigDecimal newValue = this.value.add(convertedMoneyToAdd);
+
+        return new Money(newValue, this.currency);
     }
 
     private boolean isInTheSameCurrency(Money money) {
@@ -41,9 +41,9 @@ public class Money {
     @Override
     public String toString() {
         return "Money{" +
-                "value=" + value +
-                ", currency=" + currency +
-                '}';
+            "value=" + value +
+            ", currency=" + currency +
+            '}';
     }
 
     @Override

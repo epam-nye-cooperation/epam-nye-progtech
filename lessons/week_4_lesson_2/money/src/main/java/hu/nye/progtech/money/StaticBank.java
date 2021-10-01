@@ -5,16 +5,21 @@ import java.util.Currency;
 
 public class StaticBank implements Bank {
 
-    public Money convertTo(Money moneyToConvert, Currency toCurrency) {
-        Money convertedMoney;
-        if (moneyToConvert.getCurrency().equals(Currency.getInstance("USD")) && toCurrency.equals(Currency.getInstance("HUF"))) {
-            convertedMoney = new Money(moneyToConvert.getValue().multiply(new BigDecimal(0.0034)), Currency.getInstance("USD"));
-        } else if (moneyToConvert.getCurrency().equals(Currency.getInstance("HUF")) && toCurrency.equals(Currency.getInstance("USD"))) {
-            convertedMoney = new Money(moneyToConvert.getValue().multiply(new BigDecimal(249.3)), Currency.getInstance("HUF"));
+    @Override
+    public BigDecimal getExchangeRate(Currency fromCurrency, Currency toCurrency) {
+        BigDecimal exchangeRate;
+
+        if (fromCurrency.equals(toCurrency)) {
+            exchangeRate = BigDecimal.ONE;
+        } else if (fromCurrency.equals(Currency.getInstance("USD")) && toCurrency.equals(Currency.getInstance("HUF"))) {
+            exchangeRate = BigDecimal.valueOf(249.3);
+        } else if (fromCurrency.equals(Currency.getInstance("HUF")) && toCurrency.equals(Currency.getInstance("USD"))) {
+            exchangeRate = BigDecimal.valueOf(1.0 / 249.3);
         } else {
-            return null;
+            throw new RuntimeException("Exchange rate is unknown");
         }
-        return convertedMoney;
+
+        return exchangeRate;
     }
 
 }
