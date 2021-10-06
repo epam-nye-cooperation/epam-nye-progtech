@@ -26,6 +26,7 @@
         * Függőségek:
             * JUnit5
             * Mockito
+            * Logback
     * Az alkalmazás Objektum Orientált modellezésének megkezdése
         * Az alkalmazásunkhoz szükséges VO (Value Object) osztályok létrehozása (ügyelve és figyelembe véve a "best practice"-eket: Object methods overriding, Immutability, stb)
     * Az alkalmazás képes kezdetleges felhasználói interakciókat fogadni
