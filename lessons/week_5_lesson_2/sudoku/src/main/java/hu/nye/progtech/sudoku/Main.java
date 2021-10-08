@@ -1,15 +1,24 @@
 package hu.nye.progtech.sudoku;
 
-import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.service.exception.MapReadException;
-import hu.nye.progtech.sudoku.service.map.parser.MapParser;
-import hu.nye.progtech.sudoku.service.map.reader.MapReader;
-import hu.nye.progtech.sudoku.service.map.reader.impl.BufferedReaderMapReader;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+
+import hu.nye.progtech.sudoku.model.BoxDescription;
+import hu.nye.progtech.sudoku.model.MapVO;
+import hu.nye.progtech.sudoku.service.exception.MapParseException;
+import hu.nye.progtech.sudoku.service.exception.MapReadException;
+import hu.nye.progtech.sudoku.service.exception.MapValidationException;
+import hu.nye.progtech.sudoku.service.map.parser.MapParser;
+import hu.nye.progtech.sudoku.service.map.reader.MapReader;
+import hu.nye.progtech.sudoku.service.map.reader.impl.BufferedReaderMapReader;
+import hu.nye.progtech.sudoku.service.map.validator.MapValidator;
+import hu.nye.progtech.sudoku.service.map.validator.impl.MapByBoxValidator;
+import hu.nye.progtech.sudoku.service.map.validator.impl.MapByColumnValidator;
+import hu.nye.progtech.sudoku.service.map.validator.impl.MapByRowValidator;
+import hu.nye.progtech.sudoku.service.util.CollectionUtil;
+import hu.nye.progtech.sudoku.service.util.MapUtil;
 
 public class Main {
 
@@ -38,7 +47,22 @@ public class Main {
             MapParser mapParser = new MapParser(9, 9);
             MapVO mapVO1 = mapParser.parseMap(strings);
             System.out.println(mapVO1);
+
+            CollectionUtil collectionUtil = new CollectionUtil();
+            MapUtil mapUtil = new MapUtil();
+
+            MapValidator mapByRowValidator = new MapByRowValidator(collectionUtil, mapUtil);
+            MapValidator mapByColumnValidator = new MapByColumnValidator(collectionUtil, mapUtil);
+            MapValidator mapByBoxValidator = new MapByBoxValidator(collectionUtil, mapUtil, BoxDescription.BOX_DESCRIPTION_LIST);
+
+            mapByRowValidator.validate(mapVO1);
+            mapByColumnValidator.validate(mapVO1);
+            mapByBoxValidator.validate(mapVO1);
         } catch (MapReadException e) {
+            e.printStackTrace();
+        } catch (MapParseException e) {
+            e.printStackTrace();
+        } catch (MapValidationException e) {
             e.printStackTrace();
         }
 
