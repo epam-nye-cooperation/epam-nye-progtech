@@ -1,4 +1,9 @@
 # Beadandó feladat
+
+## Tippek
+
+* Pár rövid tipp, ami jól jöhet fejlesztés során: [tips.md](tips.md)
+
 ## Torpedó parancssoros játék implementáció
 
 * A félév során a hallgatóknak önállóan kell lefejleszteni egy Java parancssoros Torpedó játékot
@@ -10,6 +15,7 @@
     * Ha nem találjuk el a hajót, azt X-el, ha eltaláljuk +-al jelöljük, az elsüllyedt hajót kisatírozzuk.
     * A játék akkor ér véget, ha valamelyik játékosnak az összes hajója ki van lőve.
     * Forrás: [Wikipedia](https://hu.wikipedia.org/wiki/Torped%C3%B3_(j%C3%A1t%C3%A9k))
+* Esetünkben az egyik játékos mi magunk leszünk, ellenfelünk pedig legyen egy lebutított robot, aki véletlenszerű lépéseket tesz
 * A beadandó feladatot két ütemben kell majd elkészíteni és megvédeni
 * A védések az óra időpontjában fognak történni (7. és 14. héten)
 * **Elvárások az első (7. heti) védésre:**
