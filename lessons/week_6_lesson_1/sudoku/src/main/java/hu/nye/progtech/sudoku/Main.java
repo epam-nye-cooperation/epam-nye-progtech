@@ -19,10 +19,20 @@ import hu.nye.progtech.sudoku.service.map.validator.impl.MapByColumnValidator;
 import hu.nye.progtech.sudoku.service.map.validator.impl.MapByRowValidator;
 import hu.nye.progtech.sudoku.service.util.CollectionUtil;
 import hu.nye.progtech.sudoku.service.util.MapUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
+
+        LOGGER.trace("trace");
+        LOGGER.debug("debug");
+        LOGGER.info("info");
+        LOGGER.warn("warn");
+        LOGGER.error("error");
 
         int[][] map = {
             {0, 1},
@@ -35,7 +45,6 @@ public class Main {
         MapVO mapVO = new MapVO(2, 2, map, fixed);
 
         System.out.println(mapVO);
-
 
         InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("map/beginner.txt");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

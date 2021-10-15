@@ -2,6 +2,7 @@ package hu.nye.progtech.sudoku.service.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import hu.nye.progtech.sudoku.model.BoxDescription;
 import hu.nye.progtech.sudoku.model.MapVO;
@@ -9,6 +10,7 @@ import hu.nye.progtech.sudoku.model.MapVO;
 public class MapUtil {
 
     public List<Integer> getRowWithIndex(MapVO mapVO, int rowIndex) {
+        Objects.requireNonNull(mapVO, "MapVO is a mandatory parameter");
         List<Integer> result = new ArrayList<>();
 
         int[][] map = mapVO.getMap();
