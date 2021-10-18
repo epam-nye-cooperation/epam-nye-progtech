@@ -53,8 +53,12 @@ public final class BoxDescription {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BoxDescription that = (BoxDescription) o;
         return minRowIndex == that.minRowIndex && maxRowIndex == that.maxRowIndex && minColumnIndex == that.minColumnIndex && maxColumnIndex == that.maxColumnIndex;
     }

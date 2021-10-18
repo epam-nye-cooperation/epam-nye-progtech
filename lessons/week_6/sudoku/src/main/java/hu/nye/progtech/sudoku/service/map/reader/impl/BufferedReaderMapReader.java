@@ -1,12 +1,12 @@
 package hu.nye.progtech.sudoku.service.map.reader.impl;
 
-import hu.nye.progtech.sudoku.service.exception.MapReadException;
-import hu.nye.progtech.sudoku.service.map.reader.MapReader;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import hu.nye.progtech.sudoku.service.exception.MapReadException;
+import hu.nye.progtech.sudoku.service.map.reader.MapReader;
 
 public class BufferedReaderMapReader implements MapReader {
 

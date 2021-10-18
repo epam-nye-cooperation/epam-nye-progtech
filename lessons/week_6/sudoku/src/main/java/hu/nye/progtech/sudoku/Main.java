@@ -28,12 +28,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LOGGER.trace("trace");
-        LOGGER.debug("debug");
-        LOGGER.info("info");
-        LOGGER.warn("warn");
-        LOGGER.error("error");
-
         int[][] map = {
             {0, 1},
             {2, 3}
@@ -44,18 +38,24 @@ public class Main {
         };
         MapVO mapVO = new MapVO(2, 2, map, fixed);
 
-        System.out.println(mapVO);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("MapVO: " + mapVO);
+        }
 
         InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("map/beginner.txt");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         MapReader mapReader = new BufferedReaderMapReader(bufferedReader);
         try {
             List<String> strings = mapReader.readMap();
-            System.out.println(strings);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("MapReader readMap output: " + strings);
+            }
 
             MapParser mapParser = new MapParser(9, 9);
             MapVO mapVO1 = mapParser.parseMap(strings);
-            System.out.println(mapVO1);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("MapParser parseMap output: " + mapVO1);
+            }
 
             CollectionUtil collectionUtil = new CollectionUtil();
             MapUtil mapUtil = new MapUtil();
@@ -68,11 +68,11 @@ public class Main {
             mapByColumnValidator.validate(mapVO1);
             mapByBoxValidator.validate(mapVO1);
         } catch (MapReadException e) {
-            e.printStackTrace();
+            LOGGER.error("MapReadException was thrown in Main", e);
         } catch (MapParseException e) {
-            e.printStackTrace();
+            LOGGER.error("MapParseException was thrown in Main", e);
         } catch (MapValidationException e) {
-            e.printStackTrace();
+            LOGGER.error("MapValidationException was thrown in Main", e);
         }
 
     }
