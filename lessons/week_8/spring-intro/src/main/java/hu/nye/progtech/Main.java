@@ -24,8 +24,8 @@ public class Main {
         List<Pet> petList1 = petService.findAll();
         System.out.println(petList1);
 
-        DummyPetService dummyPetService = applicationContext.getBean("dummyPetService", DummyPetService.class);
-        System.out.println(dummyPetService.findAll());
+        /*DummyPetService dummyPetService = applicationContext.getBean("dummyPetService", DummyPetService.class);
+        System.out.println(dummyPetService.findAll());*/
 
     }
 

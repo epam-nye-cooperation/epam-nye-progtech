@@ -1,6 +1,8 @@
 package hu.nye.progtech.di;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -12,7 +14,8 @@ public class Main {
 
         // ----------------------------------
 
-        UserRepository userRepository = new UserRepository();
+        Map<Integer, User> userMap = new HashMap<>();
+        UserRepository userRepository = new UserRepository(userMap);
         UserServiceWithDI userServiceWithDI = null;
 
         // constructor based
