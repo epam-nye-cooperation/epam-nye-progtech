@@ -39,7 +39,7 @@
 * pull
 
 ## Java project kezelése tisztán JDK eszközökkel
-* 	JDK / JRE / JDK
+* 	JDK / JRE / JVM
 * 	java –version (Java verzió kiíratása)
 * 	java Main.java (Main.java osztály lefuttatása)
 * 	javac Main.java (Main.java osztály lefordítása köztes bájtkódra)
