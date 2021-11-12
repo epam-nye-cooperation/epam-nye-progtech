@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/./progtech", "sa", "password");
+        Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
 
         String query = "SELECT * FROM USERS;";
 
@@ -30,10 +30,25 @@ public class Main {
 
         // --------------------
 
+        System.out.println(insertUser(connection, "Hacker','10000'); DROP TABLE USERS;--", 28));
+
+        // --------------------
+
         resultSet.close();
         statement.close();
         connection.close();
 
+    }
+
+    public static int insertUser(Connection connection, String name, Integer age) throws SQLException {
+        String query = "INSERT INTO USERS (NAME, AGE) VALUES (?, ?);";
+        int ret;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, age);
+            ret = preparedStatement.executeUpdate();
+        }
+        return ret;
     }
 
 }
