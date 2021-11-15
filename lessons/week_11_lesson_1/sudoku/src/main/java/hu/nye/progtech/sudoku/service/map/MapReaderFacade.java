@@ -1,8 +1,7 @@
 package hu.nye.progtech.sudoku.service.map;
 
-import java.util.List;
-
 import hu.nye.progtech.sudoku.model.MapVO;
+import hu.nye.progtech.sudoku.model.RawMap;
 import hu.nye.progtech.sudoku.service.exception.MapParsingException;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.service.exception.MapValidationException;
@@ -39,8 +38,8 @@ public class MapReaderFacade {
      */
     public MapVO readMap() {
         try {
-            List<String> rows = mapReader.readMap();
-            MapVO mapVO = mapParser.parseMap(rows);
+            RawMap rawMap = mapReader.readMap();
+            MapVO mapVO = mapParser.parseMap(rawMap);
             mapValidator.validate(mapVO);
 
             return mapVO;

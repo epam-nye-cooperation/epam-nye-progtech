@@ -2,9 +2,8 @@ package hu.nye.progtech.sudoku.service.map.reader.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import hu.nye.progtech.sudoku.model.RawMap;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.service.map.reader.MapReader;
 import org.slf4j.Logger;
@@ -25,22 +24,48 @@ public class BufferedReaderMapReader implements MapReader {
     }
 
     @Override
-    public List<String> readMap() throws MapReadingException {
+    public RawMap readMap() throws MapReadingException {
         LOGGER.info("Reading the map");
 
         String row;
-        List<String> rows = new ArrayList<>();
+        // List<String> rows = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
 
         try {
             while ((row = reader.readLine()) != null) {
-                rows.add(row);
+                // rows.add(row);
+                stringBuilder.append(row);
+                stringBuilder.append("\n");
             }
         } catch (IOException e) {
             LOGGER.error("Failed to read map", e);
             throw new MapReadingException("Failed to read map");
         }
 
-        return rows;
+        String map = stringBuilder.toString();
+        String fixed = mapToFixed(map);
+
+        return new RawMap(map, fixed);
+    }
+
+    private String mapToFixed(String map) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String[] characters = map.split("");
+        for (String character : characters) {
+            switch (character) {
+                case "\n":
+                    stringBuilder.append("\n");
+                    break;
+                case "0":
+                    stringBuilder.append("0");
+                    break;
+                default:
+                    stringBuilder.append("1");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
 }

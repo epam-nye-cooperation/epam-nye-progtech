@@ -66,8 +66,8 @@ public class MapVO {
         return "MapVO{" +
             "numberOfRows=" + numberOfRows +
             ", numberOfColumns=" + numberOfColumns +
-            ", map=" + Arrays.toString(map) +
-            ", fixed=" + Arrays.toString(fixed) +
+            ", map=" + Arrays.deepToString(map) +
+            ", fixed=" + Arrays.deepToString(fixed) +
             '}';
     }
 

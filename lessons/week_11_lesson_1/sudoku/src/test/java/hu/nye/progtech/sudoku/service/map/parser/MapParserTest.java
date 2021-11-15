@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class MapParserTest {
 
+    /*
     private static final int NUMBER_OF_ROWS = 2;
     private static final int NUMBER_OF_COLUMNS = 2;
 
@@ -93,5 +94,6 @@ public class MapParserTest {
             underTest.parseMap(INVALID_RAW_MAP_INVALID_CHARACTERS);
         });
     }
+     */
 
 }

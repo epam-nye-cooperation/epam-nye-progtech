@@ -1,19 +1,6 @@
 package hu.nye.progtech.sudoku.service.map.reader.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doThrow;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.List;
-
-import hu.nye.progtech.sudoku.service.exception.MapReadingException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -22,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class BufferedReaderMapReaderTest {
 
+    /*
     private static final String LINE_1 = "line1";
     private static final String LINE_2 = "line2";
 
@@ -59,5 +47,6 @@ public class BufferedReaderMapReaderTest {
             underTest.readMap();
         });
     }
+     */
 
 }

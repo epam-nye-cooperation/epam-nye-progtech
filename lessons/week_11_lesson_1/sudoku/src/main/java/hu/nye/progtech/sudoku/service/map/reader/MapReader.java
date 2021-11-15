@@ -1,7 +1,6 @@
 package hu.nye.progtech.sudoku.service.map.reader;
 
-import java.util.List;
-
+import hu.nye.progtech.sudoku.model.RawMap;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 
 /**
@@ -19,6 +18,6 @@ public interface MapReader {
      * @return a list of strings, each representing a single row of a map
      * @throws MapReadingException when reading of the map fails
      */
-    List<String> readMap() throws MapReadingException;
+    RawMap readMap() throws MapReadingException;
 
 }

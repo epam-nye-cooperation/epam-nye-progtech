@@ -1,24 +1,6 @@
 package hu.nye.progtech.sudoku.service.map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
-
-import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
-import hu.nye.progtech.sudoku.service.exception.MapReadingException;
-import hu.nye.progtech.sudoku.service.exception.MapValidationException;
-import hu.nye.progtech.sudoku.service.map.parser.MapParser;
-import hu.nye.progtech.sudoku.service.map.reader.MapReader;
-import hu.nye.progtech.sudoku.service.validator.MapValidator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -27,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class MapReaderFacadeTest {
 
+    /*
     private static final List<String> RAW_MAP = List.of(
         "row1",
         "row2"
@@ -99,5 +82,6 @@ public class MapReaderFacadeTest {
             underTest.readMap();
         });
     }
+     */
 
 }

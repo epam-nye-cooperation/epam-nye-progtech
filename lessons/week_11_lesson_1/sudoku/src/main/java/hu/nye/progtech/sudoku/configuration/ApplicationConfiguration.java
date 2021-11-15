@@ -45,6 +45,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public MapParser mapParser() {
+        return new MapParser(9, 9);
+    }
+
+    @Bean
     public GameStepPerformer gameStepPerformer(UserInputReader userInputReader, InputHandler inputHandler) {
         return new GameStepPerformer(userInputReader, inputHandler);
     }
