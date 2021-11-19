@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RepositoryConfig {
+public class RepositoryConfiguration {
 
     @Bean
     public Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:h2:tcp://localhost/./sudoku", "sa", "password");
+        return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
     }
 
     @Bean

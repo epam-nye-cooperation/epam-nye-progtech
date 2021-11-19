@@ -38,15 +38,13 @@ public class MapParser {
         LOGGER.info("Parsing the raw map = {}", rawMap);
 
         List<String> rows = Arrays.asList(rawMap.getMap().split("\n"));
-        List<String> fixedRows = Arrays.asList(rawMap.getFixed().split("\n"));
-
         checkNumberOfRows(rows);
         checkNumberOfColumns(rows);
         checkValues(rows);
-
         // TODO: check raw fixed
-
         int[][] map = getMap(rows);
+
+        List<String> fixedRows = Arrays.asList(rawMap.getFixed().split("\n"));
         boolean[][] fixed = getFixed(fixedRows);
 
         return new MapVO(numberOfRows, numberOfColumns, map, fixed);

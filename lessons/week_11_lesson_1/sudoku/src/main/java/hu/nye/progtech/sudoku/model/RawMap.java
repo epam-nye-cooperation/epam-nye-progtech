@@ -30,8 +30,12 @@ public class RawMap {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         RawMap rawMap = (RawMap) o;
         return map.equals(rawMap.map) && fixed.equals(rawMap.fixed);
     }
