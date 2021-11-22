@@ -1,7 +1,6 @@
 package hu.nye.progtech.sudoku.service.command.impl;
 
 import hu.nye.progtech.sudoku.model.GameState;
-import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
 import hu.nye.progtech.sudoku.service.command.Command;
 import org.slf4j.Logger;
@@ -28,8 +27,7 @@ public class LoadCommand implements Command {
     @Override
     public void process(String input) {
         LOGGER.debug("Load command was called");
-        MapVO loadedMapVO = gameSavesRepository.load();
-        gameState.setCurrentMap(loadedMapVO);
+        gameState.setCurrentMap(gameSavesRepository.load());
         LOGGER.info("Load was successful");
     }
 

@@ -2,9 +2,6 @@ package hu.nye.progtech.sudoku;
 
 import java.sql.SQLException;
 
-import hu.nye.progtech.sudoku.model.GameState;
-import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
 import hu.nye.progtech.sudoku.service.game.GameController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

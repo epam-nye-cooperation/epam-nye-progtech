@@ -86,6 +86,8 @@
                     <excludes>
                         <exclude>hu/nye/progtech/sudoku/model/*</exclude>
                         <exclude>hu/nye/progtech/sudoku/Main.*</exclude>
+                        <exclude>hu/nye/progtech/sudoku/**/*Exception.*</exclude>
+                        <exclude>hu/nye/progtech/sudoku/**/*Configuration.*</exclude>
                         <exclude>hu/nye/progtech/sudoku/ui/PrintWrapper.*</exclude>
                     </excludes>
                 </configuration>
