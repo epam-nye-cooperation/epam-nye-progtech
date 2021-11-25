@@ -6,21 +6,24 @@ import hu.nye.progtech.sudoku.service.util.MapUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Spring Java configuration class for utility Spring Beans.
+ */
 @Configuration
 public class UtilConfiguration {
 
     @Bean
-    public MapUtil mapUtil() {
+    MapUtil mapUtil() {
         return new MapUtil();
     }
 
     @Bean
-    public CollectionUtil collectionUtil() {
+    CollectionUtil collectionUtil() {
         return new CollectionUtil();
     }
 
     @Bean
-    public MapToStringUtil mapToStringUtil() {
+    MapToStringUtil mapToStringUtil() {
         return new MapToStringUtil();
     }
 

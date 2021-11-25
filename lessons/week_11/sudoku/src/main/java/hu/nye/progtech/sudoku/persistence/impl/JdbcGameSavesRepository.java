@@ -15,6 +15,9 @@ import hu.nye.progtech.sudoku.service.util.MapToStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * JDBC based implementation of {@link GameSavesRepository}.
+ */
 public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcGameSavesRepository.class);

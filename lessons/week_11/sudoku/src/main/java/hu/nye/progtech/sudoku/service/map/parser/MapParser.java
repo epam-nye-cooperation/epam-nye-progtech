@@ -30,7 +30,7 @@ public class MapParser {
     /**
      * Parses a map from a raw representation.
      *
-     * @param rows the raw representation of a map
+     * @param rawMap the raw representation of a map
      * @return a parsed map as a {@link MapVO} object
      * @throws MapParsingException if the raw representation of the map was invalid
      */

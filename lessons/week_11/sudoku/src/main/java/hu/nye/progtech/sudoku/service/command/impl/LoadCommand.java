@@ -6,6 +6,9 @@ import hu.nye.progtech.sudoku.service.command.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Command used to load a previously saved game state.
+ */
 public class LoadCommand implements Command {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadCommand.class);

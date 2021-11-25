@@ -13,26 +13,29 @@ import hu.nye.progtech.sudoku.service.validator.impl.MapValidatorComposer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Spring Java configuration class for Sudoku table validation specific Spring Beans.
+ */
 @Configuration
 public class ValidatorConfiguration {
 
     @Bean
-    public MapValidatorComposer mapValidatorComposer(List<MapValidator> mapValidatorList) {
+    MapValidatorComposer mapValidatorComposer(List<MapValidator> mapValidatorList) {
         return new MapValidatorComposer(mapValidatorList);
     }
 
     @Bean
-    public MapValidator mapByRowValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
+    MapValidator mapByRowValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
         return new MapByRowValidator(collectionUtil, mapUtil);
     }
 
     @Bean
-    public MapValidator mapByColumnValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
+    MapValidator mapByColumnValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
         return new MapByColumnValidator(collectionUtil, mapUtil);
     }
 
     @Bean
-    public MapValidator mapByBoxValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
+    MapValidator mapByBoxValidator(CollectionUtil collectionUtil, MapUtil mapUtil) {
         return new MapByBoxValidator(BoxDescription.BOX_DESCRIPTION_LIST, mapUtil, collectionUtil);
     }
 

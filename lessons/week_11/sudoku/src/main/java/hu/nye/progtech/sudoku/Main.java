@@ -2,7 +2,6 @@ package hu.nye.progtech.sudoku;
 
 import java.sql.SQLException;
 
-import hu.nye.progtech.sudoku.service.game.GameController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -18,8 +17,6 @@ public class Main {
      */
     public static void main(String[] args) throws SQLException {
         ApplicationContext context = new AnnotationConfigApplicationContext("hu.nye.progtech.sudoku");
-        GameController gameController = context.getBean(GameController.class);
-        gameController.start();
     }
 
 }

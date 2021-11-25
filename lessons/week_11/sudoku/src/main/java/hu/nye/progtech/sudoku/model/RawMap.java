@@ -2,6 +2,11 @@ package hu.nye.progtech.sudoku.model;
 
 import java.util.Objects;
 
+/**
+ * Raw representation of a Sudoku map.
+ * The actual map state is stored in {@link String} values. This model class is mainly used for persist
+ * a given game state.
+ */
 public class RawMap {
 
     private String map;

@@ -11,16 +11,19 @@ import hu.nye.progtech.sudoku.service.util.MapToStringUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Spring Java configuration class for persistence layer specific Spring Beans.
+ */
 @Configuration
 public class RepositoryConfiguration {
 
     @Bean
-    public Connection connection() throws SQLException {
+    Connection connection() throws SQLException {
         return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
     }
 
-    @Bean
-    public GameSavesRepository gameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) {
+    @Bean(destroyMethod = "close")
+    GameSavesRepository gameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) {
         return new JdbcGameSavesRepository(connection, mapToStringUtil, mapParser);
     }
 

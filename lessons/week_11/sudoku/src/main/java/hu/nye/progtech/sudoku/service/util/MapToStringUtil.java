@@ -2,8 +2,17 @@ package hu.nye.progtech.sudoku.service.util;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 
+/**
+ * Util class containing useful operations for serialize a {@link MapVO}.
+ */
 public class MapToStringUtil {
 
+    /**
+     * Convert {@link MapVO}'s map attribute to String.
+     *
+     * @param mapVO the actual {@link MapVO} to be serialized
+     * @return {@link String} representation of actual {@link MapVO}'s {@code map} attribute
+     */
     public String convertMapVoMapToString(MapVO mapVO) {
         StringBuilder builder = new StringBuilder();
 
@@ -18,6 +27,12 @@ public class MapToStringUtil {
         return builder.toString();
     }
 
+    /**
+     * Convert {@link MapVO}'s fixed attribute to String.
+     *
+     * @param mapVO the actual {@link MapVO} to be serialized
+     * @return {@link String} representation of actual {@link MapVO}'s {@code fixed}  attribute
+     */
     public String convertMapVoFixedToString(MapVO mapVO) {
         StringBuilder builder = new StringBuilder();
 
