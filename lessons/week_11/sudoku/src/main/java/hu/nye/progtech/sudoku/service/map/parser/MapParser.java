@@ -102,18 +102,4 @@ public class MapParser {
         return fixed;
     }
 
-    /*
-    private boolean[][] getFixed(int[][] map) {
-        boolean[][] fixed = new boolean[numberOfRows][numberOfColumns];
-
-        for (int x = 0; x < numberOfRows; x++) {
-            for (int y = 0; y < numberOfColumns; y++) {
-                fixed[x][y] = map[x][y] != 0;
-            }
-        }
-
-        return fixed;
-    }
-     */
-
 }

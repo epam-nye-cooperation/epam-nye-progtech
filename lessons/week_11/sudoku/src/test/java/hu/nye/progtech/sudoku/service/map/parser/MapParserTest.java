@@ -1,6 +1,7 @@
 package hu.nye.progtech.sudoku.service.map.parser;
 
 import hu.nye.progtech.sudoku.model.MapVO;
+import hu.nye.progtech.sudoku.model.RawMap;
 import hu.nye.progtech.sudoku.service.exception.MapParsingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,25 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class MapParserTest {
 
-    /*
     private static final int NUMBER_OF_ROWS = 2;
     private static final int NUMBER_OF_COLUMNS = 2;
 
-    private static final List<String> VALID_RAW_MAP = List.of(
-        "01",
-        "20"
-    );
-    private static final List<String> INVALID_RAW_MAP_FEW_ROWS = List.of(
-        "01"
-    );
-    private static final List<String> INVALID_RAW_MAP_FEW_COLUMNS = List.of(
-        "01",
-        "2"
-    );
-    private static final List<String> INVALID_RAW_MAP_INVALID_CHARACTERS = List.of(
-        "01",
-        "ab"
-    );
+    private static final String VALID_RAW_MAP = "01\n20\n";
+    private static final String VALID_RAW_FIXED = "01\n10\n";
+    private static final String INVALID_RAW_MAP_FEW_ROWS = "01\n";
+    private static final String INVALID_RAW_FIXED_FEW_ROWS = "01\n";
+    private static final String INVALID_RAW_MAP_FEW_COLUMNS = "01\n2\n";
+    private static final String INVALID_RAW_FIXED_FEW_COLUMNS = "01\n1\n";
+    private static final String INVALID_RAW_MAP_INVALID_CHARACTERS = "01\nab\n";
+    private static final String INVALID_RAW_FIXED_INVALID_CHARACTERS = "01\n11\n";
 
     private static final int[][] MAP = {
         {0, 1},
@@ -57,9 +50,10 @@ public class MapParserTest {
     @Test
     public void testParseMapShouldReturnNewParsedMap() throws MapParsingException {
         // given
+        RawMap input = new RawMap(VALID_RAW_MAP, VALID_RAW_FIXED);
 
         // when
-        MapVO result = underTest.parseMap(VALID_RAW_MAP);
+        MapVO result = underTest.parseMap(input);
 
         // then
         assertEquals(EXPECTED_MAP_VO, result);
@@ -68,32 +62,34 @@ public class MapParserTest {
     @Test
     public void testParseMapShouldThrowMapParsingExceptionWhenThereAreNotEnoughRows() throws MapParsingException {
         // given in setup
+        RawMap input = new RawMap(INVALID_RAW_MAP_FEW_ROWS, INVALID_RAW_FIXED_FEW_ROWS);
 
         // when - then
         assertThrows(MapParsingException.class, () -> {
-            underTest.parseMap(INVALID_RAW_MAP_FEW_ROWS);
+            underTest.parseMap(input);
         });
     }
 
     @Test
     public void testParseMapShouldThrowMapParsingExceptionWhenThereAreNotEnoughColumns() {
         // given in setup
+        RawMap input = new RawMap(INVALID_RAW_MAP_FEW_COLUMNS, INVALID_RAW_FIXED_FEW_COLUMNS);
 
         // when - then
         assertThrows(MapParsingException.class, () -> {
-            underTest.parseMap(INVALID_RAW_MAP_FEW_COLUMNS);
+            underTest.parseMap(input);
         });
     }
 
     @Test
     public void testParseMapShouldThrowMapParsingExceptionWhenThereAreInvalidCharacters() {
         // given in setup
+        RawMap input = new RawMap(INVALID_RAW_MAP_INVALID_CHARACTERS, INVALID_RAW_FIXED_INVALID_CHARACTERS);
 
         // when - then
         assertThrows(MapParsingException.class, () -> {
-            underTest.parseMap(INVALID_RAW_MAP_INVALID_CHARACTERS);
+            underTest.parseMap(input);
         });
     }
-     */
 
 }

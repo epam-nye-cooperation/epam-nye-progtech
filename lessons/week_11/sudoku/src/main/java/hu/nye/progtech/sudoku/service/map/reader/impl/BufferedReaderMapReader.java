@@ -28,12 +28,10 @@ public class BufferedReaderMapReader implements MapReader {
         LOGGER.info("Reading the map");
 
         String row;
-        // List<String> rows = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
             while ((row = reader.readLine()) != null) {
-                // rows.add(row);
                 stringBuilder.append(row);
                 stringBuilder.append("\n");
             }

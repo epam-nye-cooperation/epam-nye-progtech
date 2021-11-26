@@ -1,6 +1,20 @@
 package hu.nye.progtech.sudoku.service.map.reader.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
+
+import hu.nye.progtech.sudoku.model.RawMap;
+import hu.nye.progtech.sudoku.service.exception.MapReadingException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -9,11 +23,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class BufferedReaderMapReaderTest {
 
-    /*
-    private static final String LINE_1 = "line1";
-    private static final String LINE_2 = "line2";
+    private static final String LINE_1 = "0012";
+    private static final String LINE_2 = "2100";
 
-    private static final List<String> EXPECTED_RAW_MAP = List.of(LINE_1, LINE_2);
+    private static final String EXPECTED_MAP = "0012\n2100\n";
+    private static final String EXPECTED_FIXED = "0011\n1100\n";
 
     @Mock
     private BufferedReader bufferedReader;
@@ -26,15 +40,16 @@ public class BufferedReaderMapReaderTest {
     }
 
     @Test
-    public void testReadMapShouldReturnReadLinesFromBufferedReader() throws IOException, MapReadingException {
+    public void testReadMapShouldReturnRawMapFromBufferedReader() throws IOException, MapReadingException {
         // given
         given(bufferedReader.readLine()).willReturn(LINE_1, LINE_2, null);
+        RawMap expected = new RawMap(EXPECTED_MAP, EXPECTED_FIXED);
 
         // when
-        List<String> result = underTest.readMap();
+        RawMap actual = underTest.readMap();
 
         // then
-        assertEquals(EXPECTED_RAW_MAP, result);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -47,6 +62,5 @@ public class BufferedReaderMapReaderTest {
             underTest.readMap();
         });
     }
-     */
 
 }
