@@ -33,6 +33,18 @@
         </dependency>
 
         <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>3.0.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.8.1</version>
@@ -85,6 +97,7 @@
                 <configuration>
                     <excludes>
                         <exclude>hu/nye/progtech/sudoku/model/*</exclude>
+                        <exclude>hu/nye/progtech/sudoku/xml/model/*</exclude>
                         <exclude>hu/nye/progtech/sudoku/Main.*</exclude>
                         <exclude>hu/nye/progtech/sudoku/**/*Exception.*</exclude>
                         <exclude>hu/nye/progtech/sudoku/**/*Configuration.*</exclude>
