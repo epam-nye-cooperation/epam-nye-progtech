@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+    <head>
+        <title>Sudoku</title>
+    </head>
+    <body>
+    	<div>
+    	    <h1>Sudoku</h1>
+            <form th:action="@{/start}" method="post">
+                <div><label> Username : <input type="text" name="username"/> </label></div>
+                <div><input type="submit" value="Start a game"/></div>
+            </form>
+        </div>
+    </body>
+</html>

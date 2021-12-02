@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+    <head>
+        <title>Sudoku</title>
+        <style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			}
+			
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: middle;
+			  padding: 8px;
+			}
+		</style>
+    </head>
+    <body>
+    	<div>
+    	    <h1 th:inline="text">Sudoku - Game of [[${session.gameStateHolder.getGameState().getUsername()}]]!</h1>
+        	<div>
+	        	<table>
+				    <tr th:each="row: ${session.gameStateHolder.getGameState().getCurrentMap().getMap()}">
+				        <td th:each="item: ${row}">
+				            <span th:if="${item} != 0" th:text="${item}"></span>
+				        </td>
+				    <tr>
+				</table>
+        	</div>
+        	<div>
+        	    <form th:action="@{/step}" method="post">
+	                <div><label> Row : <input type="number" name="rowIndex"/> </label></div>
+	                <div><label> Column : <input type="number" name="columnIndex"/> </label></div>
+	                <div><label> Number : <input type="number" name="number"/> </label></div>
+	                <div><input type="submit" value="Put"/></div>
+	            </form>
+        	</div>
+        	<div>
+        	    <form th:action="@{/save}" method="post">
+	                <div><input type="submit" value="Save"/></div>
+	            </form>
+        	</div>
+        	<div>
+        	    <form th:action="@{/load}" method="post">
+	                <div><input type="submit" value="Load"/></div>
+	            </form>
+        	</div>
+        </div>
+    </body>
+</html>
