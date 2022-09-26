@@ -6,16 +6,17 @@
 
 ## Torpedó parancssoros játék implementáció
 
-* A félév során a hallgatóknak önállóan kell lefejleszteni egy Java parancssoros Torpedó játékot
-    * A Torpedó kétszemélyes stratégiai táblajáték, mely 2x2 db négyzetarányos táblán játszható
-    * A győzelemhez ki kell lőni az ellenfél összes hajóját
-    * Mindkét játékos előtt két darab vízszintesen betűzött, és függőlegesen számozott tábla van. Az egyiken ő jelöli a lövéseit, a másikon a saját hajói vannak, és az ellenfél lövéseit jelöli.
-    * A játékosok felváltva mondanak egymásnak pozíciókat, (pl. A3) és mindketten kijelölik a mondott területet.
-    * Találatnak számít, ha eltalálunk egy hajót, süllyedésnek, ha minden kockáját eltaláltuk.
-    * Ha nem találjuk el a hajót, azt X-el, ha eltaláljuk +-al jelöljük, az elsüllyedt hajót kisatírozzuk.
-    * A játék akkor ér véget, ha valamelyik játékosnak az összes hajója ki van lőve.
-    * Forrás: [Wikipedia](https://hu.wikipedia.org/wiki/Torped%C3%B3_(j%C3%A1t%C3%A9k))
-* Esetünkben az egyik játékos mi magunk leszünk, ellenfelünk pedig legyen egy lebutított robot, aki véletlenszerű lépéseket tesz
+* A félév során a hallgatóknak önállóan kell lefejleszteni egy Java parancssoros Fox-and-Hounds játékot
+* Ennek leírása itt olvasható a Fox and Hounds szekcióban (angolul):
+    https://en.wikipedia.org/wiki/Fox_games
+    * A fox-and-hounds kétszemélyes stratégiai táblajáték, mely 1 db négyzetarányos NxN-es (N páros szám, 4 <=N<=12), tipikusan 8x8-as táblán játszható.
+    * Az oszlopok számozása tipikusan a,b,c, ... betűkkel történik, a soroké 1,2,3,..,N sorszámokkal -- de ettől nem függ a játékprogram.
+    * Induláskor N/2 darab kutya áll a felső sor páros oszlopindexű mezőiben, és 1 db róka áll a bal alsó sarokban. Ez azt jelenti, hogy azonos színű mezőkön állnak, ha sakkpályának gondoljuk a pályát. 
+    * A két játékos közül az egyik a rókát vezeti, a másik a kutyákat; minden körben mindkét játékos egyet lép. Egy körben a kutyákat vezető csak egy kutyával léphet. 
+    * A lépések során a bábuk egy átlós irányban egyet mozdulhatnak el. (1 hosszú futólépés  sakkban.) Nyilván a pályáról nem lehet lelépni.
+    * A kutyák célja az, hogy beszorítsák a rókát úgy, hogy ne tudjon lépni. A róka célja az, hogy eljusson a felső ror akármelyik mezőjére.
+    * A játék akkor ér véget, ha valamelyik játékos eléri a célját.
+* Esetünkben az egyik játékos a parancssoron be adja meg a lépését ( mi a rókát vezetjük), ellenfelünk pedig legyen egy lebutított robot, aki véletlenszerű lépéseket tesz a kutyákkal, ugye, mindig csak eggyel.
 * A beadandó feladatot két ütemben kell majd elkészíteni és megvédeni
 * A védések az óra időpontjában fognak történni (7. és 14. héten)
 * **Elvárások az első (7. heti) védésre:**
@@ -36,9 +37,9 @@
     * Az alkalmazás Objektum Orientált modellezésének megkezdése
         * Az alkalmazásunkhoz szükséges VO (Value Object) osztályok létrehozása (ügyelve és figyelembe véve a "best practice"-eket: Object methods overriding, Immutability, stb)
     * Az alkalmazás képes kezdetleges felhasználói interakciókat fogadni
-        * Például: Játékos nevének bekérése, Játék elindítása, Torepedó játéktér kiiratása, Hajók lerakásának interakciója, stb
+        * Például: Játékos nevének bekérése, Játék elindítása, Fox-and_Hounds játéktér kiiratása, Egy lépés fogadása a parancssoron, a lépés vizsgálata abból a szempontból, hogy alkalmazható-e; a lépés alkalmazása és az eredmény kiírása, stb
         * Itt nem határozunk meg kötelező elvárásokat, tetszőleges kezdetleges interakciók elegendőek
-    * Egység tesztek 80% lefedettséget biztosítanak üzleti logikát tartalmazó osztályokra (tehát például VO osztályokra nem szükséges Egység teszteket írni)
+    * Egység tesztek 80% lefedettséget biztosítanak üzleti logikát tartalmazó osztályokra (tehát például VO osztályokra nem szükséges egységteszteket írni)
 * **Elvárások a második (14. heti) védésre:**
     * Spring IoC / DI framework bevezetése a projektbe
     * A teljes Torpedó játék funkcionalitás lefejlesztésre került (lehetséges egy játékot végig játszani elejétől a végéig)
