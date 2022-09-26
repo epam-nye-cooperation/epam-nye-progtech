@@ -14,7 +14,7 @@
     * Induláskor N/2 darab kutya áll a felső sor páros oszlopindexű mezőiben, és 1 db róka áll a bal alsó sarokban. Ez azt jelenti, hogy azonos színű mezőkön állnak, ha sakkpályának gondoljuk a pályát. 
     * A két játékos közül az egyik a rókát vezeti, a másik a kutyákat; minden körben mindkét játékos egyet lép. Egy körben a kutyákat vezető csak egy kutyával léphet. 
     * A lépések során a bábuk egy átlós irányban egyet mozdulhatnak el. (1 hosszú futólépés  sakkban.) Nyilván a pályáról nem lehet lelépni.
-    * A kutyák célja az, hogy beszorítsák a rókát úgy, hogy ne tudjon lépni. A róka célja az, hogy eljusson a felső ror akármelyik mezőjére.
+    * A kutyák célja az, hogy beszorítsák a rókát úgy, hogy ne tudjon lépni. A róka célja az, hogy eljusson a felső sor akármelyik mezőjére.
     * A játék akkor ér véget, ha valamelyik játékos eléri a célját.
 * Esetünkben az egyik játékos a parancssoron be adja meg a lépését ( mi a rókát vezetjük), ellenfelünk pedig legyen egy lebutított robot, aki véletlenszerű lépéseket tesz a kutyákkal, ugye, mindig csak eggyel.
 * A beadandó feladatot két ütemben kell majd elkészíteni és megvédeni
