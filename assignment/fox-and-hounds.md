@@ -36,7 +36,7 @@
     * Egység tesztek 80% lefedettséget biztosítanak üzleti logikát tartalmazó osztályokra (tehát például VO osztályokra nem szükséges egységteszteket írni)
 * **Elvárások a második (14. heti) védésre:**
     * Spring IoC / DI framework bevezetése a projektbe
-    * A teljes Torpedó játék funkcionalitás lefejlesztésre került (lehetséges egy játékot végig játszani elejétõl a végéig)
+    * A teljes Fox and Hounds játék funkcionalitás lefejlesztésre került (lehetséges egy játékot végig játszani elejétõl a végéig)
     * Az alkalmazás egy adatbázisba lementi a játékosok nevét és azt, hogy hányszor nyertek
         * Az alkalmazás képes megjeleníteni parancssorban egy high score táblázatot (melyik játékos hány meccset nyert)
     * Egy aktuálisan folyamatban lévõ játék állást az alkalmazás képes egy XML fájlba kimenteni és késõbb visszatölteni (tehát a játékos onnan folytathatja a játékot, ahol korábban abba hagyta)
