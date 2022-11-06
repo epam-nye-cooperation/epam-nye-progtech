@@ -35,9 +35,10 @@
         * Itt nem határozunk meg kötelezõ elvárásokat, tetszõleges kezdetleges interakciók elegendõek
     * Egység tesztek 80% lefedettséget biztosítanak üzleti logikát tartalmazó osztályokra (tehát például VO osztályokra nem szükséges egységteszteket írni)
 * **Elvárások a második (14. heti) védésre:**
-    * Spring IoC / DI framework bevezetése a projektbe
     * A teljes Fox and Hounds játék funkcionalitás lefejlesztésre került (lehetséges egy játékot végig játszani elejétõl a végéig)
+    * A projekt a `mvn clean install` parancs futtatására hiba nélkül fordul
+	* Spring IoC / DI framework bevezetése a projektbe
     * Az alkalmazás egy adatbázisba lementi a játékosok nevét és azt, hogy hányszor nyertek
         * Az alkalmazás képes megjeleníteni parancssorban egy high score táblázatot (melyik játékos hány meccset nyert)
-    * Egy aktuálisan folyamatban lévõ játék állást az alkalmazás képes egy XML fájlba kimenteni és késõbb visszatölteni (tehát a játékos onnan folytathatja a játékot, ahol korábban abba hagyta)
+    * Opcionális (plusz pontért): egy aktuálisan folyamatban lévõ játék állást az alkalmazás képes egy XML fájlba kimenteni és késõbb visszatölteni (tehát a játékos onnan folytathatja a játékot, ahol korábban abba hagyta)
     * Egység tesztek továbbra is 80% lefedettséget biztosítanak üzleti logikát tartalmazó osztályokra
