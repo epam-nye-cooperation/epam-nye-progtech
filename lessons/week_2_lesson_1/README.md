@@ -25,7 +25,7 @@
 
 - Olvasnivaló: https://www.atlassian.com/git/tutorials/using-branches/git-merge
 - Branch mergelése egy másikba
-- Merge startégiák
+- Merge stratégiák
   - Fast-forward
   - 3-way merge
 - Parancsok
@@ -37,7 +37,7 @@
 - Conflict helyzet előállítása
 - A Git által használt conflict jelölők megtekintése
 - Conflict feloldása
-- Merge siekres befejezése
+- Merge sikeres befejezése
 
 ### Pull request
 
