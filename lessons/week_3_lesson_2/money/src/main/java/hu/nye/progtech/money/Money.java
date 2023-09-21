@@ -1,24 +1,18 @@
 package hu.nye.progtech.money;
 
-import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Objects;
 
 public class Money {
 
-    private BigDecimal value;
-    private Currency currency;
+    public double value;
+    public Currency currency;
 
-    public Money(double value, Currency currency) {
-        this(new BigDecimal(value), currency);
-    }
-
-    public Money(BigDecimal value, Currency currency) {
+    public Money(Double value, Currency currency) {
         this.value = value;
         this.currency = currency;
     }
 
-    public BigDecimal getValue() {
+    public Double getValue() {
         return value;
     }
 
@@ -26,36 +20,19 @@ public class Money {
         return currency;
     }
 
-    public Money add(Money moneyToAdd, Bank bank) {
-        if (!isInTheSameCurrency(moneyToAdd)) {
-            moneyToAdd = bank.convertTo(moneyToAdd, this.currency);
-        }
-        this.value = value.add(moneyToAdd.getValue());
+    public Money add(Money moneyToAdd, BankService bankService) {
+        Money convertedMoney = bankService.convertTo(moneyToAdd, this.getCurrency())
+                .orElse(new Money(0D, this.currency));
+        this.value += convertedMoney.getValue();
         return this;
-    }
-
-    private boolean isInTheSameCurrency(Money money) {
-        return this.currency.equals(money.getCurrency());
     }
 
     @Override
     public String toString() {
-        return "Money{" +
-                "value=" + value +
-                ", currency=" + currency +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Money money = (Money) o;
-        return Objects.equals(value, money.value) && Objects.equals(currency, money.currency);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value, currency);
+        final StringBuilder sb = new StringBuilder("Money{");
+        sb.append("value=").append(value);
+        sb.append(", currency=").append(currency);
+        sb.append('}');
+        return sb.toString();
     }
 }

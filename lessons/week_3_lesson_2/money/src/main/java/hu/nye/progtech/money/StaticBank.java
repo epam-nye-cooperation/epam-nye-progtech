@@ -1,20 +1,28 @@
 package hu.nye.progtech.money;
 
-import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Optional;
 
-public class StaticBank implements Bank {
+public class StaticBank implements BankService {
 
-    public Money convertTo(Money moneyToConvert, Currency toCurrency) {
-        Money convertedMoney;
-        if (moneyToConvert.getCurrency().equals(Currency.getInstance("USD")) && toCurrency.equals(Currency.getInstance("HUF"))) {
-            convertedMoney = new Money(moneyToConvert.getValue().multiply(new BigDecimal(0.0034)), Currency.getInstance("USD"));
-        } else if (moneyToConvert.getCurrency().equals(Currency.getInstance("HUF")) && toCurrency.equals(Currency.getInstance("USD"))) {
-            convertedMoney = new Money(moneyToConvert.getValue().multiply(new BigDecimal(249.3)), Currency.getInstance("HUF"));
-        } else {
-            return null;
+    private static final Currency USD = Currency.getInstance("USD");
+    private static final Currency HUF = Currency.getInstance("HUF");
+
+    @Override
+    public Optional<Money> convertTo(final Money moneyToConvert, final Currency toCurrency) {
+        Optional<Money> money = Optional.ofNullable(moneyToConvert);
+        if (money.map(Money::getCurrency)
+                .map(e -> !e.equals(toCurrency))
+                .orElse(false)
+        ) {
+            if (toCurrency.equals(USD) && moneyToConvert.getCurrency().equals(HUF)) {
+                money = Optional.of(new Money(moneyToConvert.value * 0.0034, USD));
+            } else if (toCurrency.equals(HUF) && moneyToConvert.getCurrency().equals(USD)) {
+                money = Optional.of(new Money(moneyToConvert.value * 249.3, HUF));
+            } else {
+                return Optional.empty();
+            }
         }
-        return convertedMoney;
+        return money;
     }
-
 }

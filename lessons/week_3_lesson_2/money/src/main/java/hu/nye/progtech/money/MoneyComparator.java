@@ -4,15 +4,15 @@ import java.util.Comparator;
 
 public class MoneyComparator implements Comparator<Money> {
 
-    private Bank bank;
+    private BankService bank;
 
-    public MoneyComparator(Bank bank) {
+    public MoneyComparator(BankService bank) {
         this.bank = bank;
     }
 
     @Override
     public int compare(Money money1, Money money2) {
-        money2 = bank.convertTo(money2, money1.getCurrency());
-        return money1.getValue().compareTo(money2.getValue());
+        final Double convertedValue = bank.convertTo(money2, money1.getCurrency()).map(Money::getValue).orElse(0.0);
+        return money1.getValue().compareTo(convertedValue);
     }
 }
