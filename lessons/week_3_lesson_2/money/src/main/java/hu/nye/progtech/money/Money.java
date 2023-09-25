@@ -21,8 +21,7 @@ public class Money {
     }
 
     public Money add(Money moneyToAdd, BankService bankService) {
-        Money convertedMoney = bankService.convertTo(moneyToAdd, this.getCurrency())
-                .orElse(new Money(0D, this.currency));
+        Money convertedMoney = bankService.convertTo(moneyToAdd, this.getCurrency());
         this.value += convertedMoney.getValue();
         return this;
     }

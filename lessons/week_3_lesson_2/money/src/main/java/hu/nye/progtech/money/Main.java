@@ -17,16 +17,16 @@ public class Main {
         Money huf1000 = new Money(1000D, HUF);
         Money usd5 = new Money(5D, USD);
 
-        System.out.println(huf100.toString());
-        System.out.println(huf1000);
+        //        System.out.println(huf100.toString());
+        //        System.out.println(huf1000);
 
         /// -------------------------------------------
 
-//        System.out.println(huf1000.compareTo(huf100));
-//        System.out.println(huf100.add(huf1000).toString());
-//        System.out.println(huf100.add(huf1000, bank));
-//        System.out.println(huf1000.add(usd5, bank));
-//        System.out.println(usd5.add(huf1000, bank));
+        //        System.out.println(huf1000.compareTo(huf100));
+        //        System.out.println(huf100.add(huf1000, bank).toString());
+        //        System.out.println(huf100.add(huf1000, bank));
+        //        System.out.println(huf1000.add(usd5, bank));
+        //        System.out.println(usd5.add(huf1000, bank));
         System.out.println(usd5.add(null, bank));
 
         /// -------------------------------------------

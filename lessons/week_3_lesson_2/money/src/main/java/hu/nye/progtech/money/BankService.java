@@ -5,6 +5,6 @@ import java.util.Optional;
 
 public interface BankService {
 
-    Optional<Money> convertTo(Money moneyToConvert, Currency toCurrency);
+    Money convertTo(Money moneyToConvert, Currency toCurrency);
 
 }

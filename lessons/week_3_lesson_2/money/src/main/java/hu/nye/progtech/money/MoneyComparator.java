@@ -12,7 +12,7 @@ public class MoneyComparator implements Comparator<Money> {
 
     @Override
     public int compare(Money money1, Money money2) {
-        final Double convertedValue = bank.convertTo(money2, money1.getCurrency()).map(Money::getValue).orElse(0.0);
-        return money1.getValue().compareTo(convertedValue);
+        final Money convertedMoney = bank.convertTo(money2, money1.getCurrency());
+        return money1.getValue().compareTo(convertedMoney.getValue());
     }
 }
