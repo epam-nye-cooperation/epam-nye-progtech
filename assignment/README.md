@@ -8,3 +8,4 @@
 
 * 2021/2022/1 félév: [Torpedó](torpedo.md)
 * 2022/2023/1 félév: [Fox and Hounds](fox-and-hounds.md)
+* 2023/2024/1 félév: [Wumplusz](wumpus.md)
