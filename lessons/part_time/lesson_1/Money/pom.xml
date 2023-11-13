@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hu.nye.progtech</groupId>
+    <artifactId>Money</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.8.1</junit.version>
+        <junit-jupiter.version>3.12.4</junit-jupiter.version>
+        <logback.version>1.4.11</logback.version>
+    </properties>
+
+    <dependencies>
+        <!-- A logoláshoz szükséges függőség, fontos, hogy legyen hozzá egy konfig fájl,
+          ez a project mappájában, `logback.xml` néven található meg.
+        -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- A `maven-assembly-plugin` plugin-el lehet létrehozni a fat JAR artifact-ot, amely tartalmazza az öszes függőséget.
+                A JAR fájl futtatásáhos:
+                    - fordítsuk le a projektekt az `mvn clean package` parannccsal,
+                    - nyissunk egy console alkalmazást és navigáljunk a projekt mappájába,
+                    - futtasuk a következő parancsot: ` java -jar .\target\Money-1.0-SNAPSHOT-jar-with-dependencies.jar`
+                    Megjegyzés: az artifact neve különböző lesz a ti projektetekben.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        <!-- Itt kell bekonfigurálni az alkalmazás belépési pontját.
+                                        A package és az osztály neve is különböző lehet nálatok. -->
+                                        hu.nye.progtech.Main
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- A `maven-surefire-plugin` futtatja meg a unit teszteket a `test` fázis alatt
+             és generálja le a `/target/surefire-reports/` mappában lévő riport fájlokat. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <!--
+            A `jacoco-maven-plugin` lehet ellenőriztetni, hogy mekkora a forráskód lefedetssége a tesztek által.
+            -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <configuration>
+                    <excludes>
+                        <!-- Itt lehet beállítani, hogy mely osztályokat , csomagokat hagyja figyelmen kívül.
+                         Ilyenek lehetnek például a Main class, model és entity osztályok, konfigurációk. -->
+                        <exclude>hu/nye/progtech/model/MoneyCurrencies.class</exclude>
+                        <exclude>hu/nye/progtech/model/MoneyCurrenciesEnum.*</exclude>
+                        <exclude>hu/nye/progtech/model/exception/*</exclude>
+                        <exclude>**/config/**</exclude>
+                        <exclude>hu/nye/progtech/Main.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>CLASS</element>
+                                    <limits>
+                                        <limit>
+                                            <!-- A `counter` tag-el lehet beállítani, hogy milyen legyen a lefedettség ellenőrzésre.
+                                             Maradhat a `LINE`-->
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <!-- A `minimum` tag-el lehet állítani, hogy mekkora lefedettség szükséges, hogy sikeres legyen a build.
+                                             értéke: 0 <= x <= 1 lehet, 0.8 egyenlő 80%-al. -->
+                                            <minimum>0.7</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                            out
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>9.0.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- A `maven-site-plugin` plugin felelős azért, hogy report html fájlokat készítsen.
+            A `/target/site/jacoco/index.html` fájlt megnyitva lehet megtekinteni az elkészített html riport fájlt a tesztek eredményével kapcsolatban. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <!-- A `maven-checkstyle-plugin` felelős azért, hogy statikusan ellenőrizze a kódbázis formázását.
+            Ehhez a projektben lévő módosított `checkstyle.xml` konfigurációs fájlt használja fel. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
