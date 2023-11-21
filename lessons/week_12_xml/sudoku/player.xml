@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<player>
+    <id>1</id>
+    <name>Player_1</name>
+    <password>Password</password>
+    <gameState id="1">
+        <rows id="1">
+            <blocks fixed="false" id="1">
+                <value>2</value>
+            </blocks>
+            <blocks fixed="true" id="2">
+                <value>3</value>
+            </blocks>
+        </rows>
+        <rows id="2">
+            <blocks fixed="false" id="3">
+                <value>4</value>
+            </blocks>
+            <blocks fixed="true" id="4">
+                <value>5</value>
+            </blocks>
+        </rows>
+    </gameState>
+    <registrationDate>2023-11-20 17:27:38</registrationDate>
+</player>
