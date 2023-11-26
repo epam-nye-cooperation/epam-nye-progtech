@@ -1,0 +1,112 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+enum Box {
+    + x
+    + y
+}
+
+class Grid {
+    + row(index: int): int[]
+    + column(index: int): int[]
+    + boxContent(box: Box): int[]
+    + cells(): int[][]
+    + writeCells(index: int[][], value: int): boolean
+    + isFilled()
+    + isFixed(rowIndex: int, columnIndex: int)
+    + setCellValue(rowIndex: int, columnIndex: int, value: int)
+}
+
+Grid --> Box
+
+interface Validator {
+    + validate(Grid)
+}
+
+class ValidatorImpl {
+    + validate(Grid)
+}
+
+ValidatorImpl --|> Validator
+
+interface Repository {
+   + readLines(): string[]
+   + writeLines(lines: string[])
+}
+
+class TxtRepository {
+   + readLines(): string[]
+   + writeLines(lines: string[])
+}
+
+TxtRepository --|> Repository
+
+interface Persister {
+    + readCells(): int[][]
+    + writeCells()
+}
+
+class TxtPersister {
+    + readCells(): int[][]
+    + writeCells()
+}
+
+interface LineParser {
+    + parseLines(lines: string[]): int[][]
+}
+
+class LineParserImpl {
+    + parseLines(lines: string[]): int[][]
+}
+
+LineParserImpl --|> LineParser
+
+interface LineBuilder {
+    + buildLines(int[][] cells): string[]
+}
+
+class LineBuilderImpl {
+    + buildLines(int[][] cells): string[]
+}
+
+LineBuilderImpl --|> LineBuilder
+
+TxtPersister --|> Persister
+TxtPersister --> TxtRepository
+TxtPersister --> LineParser
+TxtPersister --> LineBuilder
+
+class GameResult {
+    + completed: boolean
+    + current: Grid
+}
+
+interface GameController {
+    + runGame(): GameResult
+}
+
+class ConsoleGameController {
+    + runGame(Grid: Grid): GameResult
+}
+
+ConsoleGameController --|> GameController
+ConsoleGameController --> Validator
+
+GameController --> GameResult
+
+interface Conductor {
+    + conduct()
+}
+
+class ConductorImpl {
+    + conduct()
+}
+
+ConductorImpl --|> Conductor
+ConductorImpl --> Persister
+ConductorImpl --> GameController
+ConductorImpl --> Validator
+ConductorImpl --> Grid
+ConductorImpl --> GameResult
+
+@enduml

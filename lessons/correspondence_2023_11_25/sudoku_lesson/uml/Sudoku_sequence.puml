@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+database Database
+
+participant Repository
+participant LineParser
+participant LineBuilder
+participant Persister
+
+participant Conductor
+participant Validator
+participant GameConductor
+
+Persister <- Conductor: read the grid
+activate Conductor #A80000
+activate Persister
+
+Repository <- Persister: read lines
+activate Repository
+Repository --> Persister: lines
+deactivate Repository
+
+Persister -> LineParser: parse lines
+activate LineParser
+LineParser --> Persister: grid
+deactivate LineParser
+
+Persister --> Conductor: grid cells
+
+deactivate Persister
+
+Validator <- Conductor: validate the content
+activate Validator
+Validator --> Conductor: valid or not
+deactivate Validator
+
+Conductor -> GameConductor: run the game
+activate GameConductor
+
+GameConductor --> Conductor: result
+note right
+    Contains the result
+    and the current grid
+end note
+deactivate GameConductor
+
+Conductor -> Persister: grid cells
+activate Persister
+
+Persister -> LineBuilder: build the lines
+activate LineBuilder
+LineBuilder --> Persister: lines
+deactivate LineBuilder
+
+Persister -> Repository: write lines
+activate Repository
+Repository -> Database: write lines
+deactivate Repository
+deactivate Persister
+deactivate Conductor
+
+@enduml

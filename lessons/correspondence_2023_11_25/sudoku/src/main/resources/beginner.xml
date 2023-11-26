@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<grid xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" columnCount="9" rowCount="9" xsi:schemaLocation="c:/tmp/prog/schema1.xsd">
+    <gridLines>
+        <line columnCount="9">
+            <line>401290075</line>
+            <rowNumber>1</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>200300800</line>
+            <rowNumber>2</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>070080006</line>
+            <rowNumber>3</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>000103062</line>
+            <rowNumber>4</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>105000403</line>
+            <rowNumber>5</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>730608000</line>
+            <rowNumber>6</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>600020030</line>
+            <rowNumber>7</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>007001004</line>
+            <rowNumber>8</rowNumber>
+        </line>
+        <line columnCount="9">
+            <line>890065107</line>
+            <rowNumber>9</rowNumber>
+        </line>
+    </gridLines>
+    <name>beginner</name>
+</grid>
