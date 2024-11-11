@@ -1,4 +1,4 @@
-package hu.nye.progtech.money.Config;
+package hu.nye.progtech.money.config;
 
 import hu.nye.progtech.money.bank.Bank;
 import hu.nye.progtech.money.bank.StaticBank;
@@ -7,12 +7,14 @@ import hu.nye.progtech.money.service.MoneyService;
 import hu.nye.progtech.money.service.impl.ExchangeServiceImpl;
 import hu.nye.progtech.money.service.impl.MoneyServiceImpl;
 
-public class AppConfig {
+public final class AppConfig {
+
+    private AppConfig() {
+    }
 
     public static ExchangeService exchangeService() {
        return new ExchangeServiceImpl();
     }
-    MoneyService moneyService = new MoneyServiceImpl(AppConfig.exchangeService());
 
     public static Bank staticBank() {
         return new StaticBank();

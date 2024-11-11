@@ -1,0 +1,5 @@
+money:
+  bank:
+    ratio:
+      usd-huf: 210.0
+      huf-usd: 0.04

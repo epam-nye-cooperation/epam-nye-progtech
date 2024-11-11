@@ -5,8 +5,8 @@ import hu.nye.progtech.money.domain.Money;
 
 public interface MoneyService {
 
-    Money add(Money targetMoney, Money moneyToAdd, Bank bank);
+    Money add(Money targetMoney, Money moneyToAdd);
 
-    Integer compareTo(Money targetMoney, Money moneyToCompare, Bank bank);
+    Integer compareTo(Money targetMoney, Money moneyToCompare);
 
 }

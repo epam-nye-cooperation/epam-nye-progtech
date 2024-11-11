@@ -1,12 +1,9 @@
 package hu.nye.progtech.money;
 
-import hu.nye.progtech.money.Config.AppConfig;
+import hu.nye.progtech.money.config.AppConfig;
 import hu.nye.progtech.money.bank.Bank;
-import hu.nye.progtech.money.bank.StaticBank;
 import hu.nye.progtech.money.domain.Money;
-import hu.nye.progtech.money.domain.Product;
 import hu.nye.progtech.money.service.MoneyService;
-import hu.nye.progtech.money.service.impl.MoneyServiceImpl;
 
 import java.util.Currency;
 
@@ -19,11 +16,11 @@ public class Main {
         Bank staticBank = AppConfig.staticBank();
         MoneyService moneyService = AppConfig.moneyService();
 
-//        Money sumedMoney = moneyService.add(money1, money2, staticBank);
-//
-//        System.out.println(money1);
-//        System.out.println(sumedMoney);
-//        System.out.println(money2.equals(money3));
+        Money sumedMoney = moneyService.add(money1, money2, staticBank);
+
+        System.out.println(money1);
+        System.out.println(sumedMoney);
+        System.out.println(money2.equals(money3));
 
         // -----------------------
 
@@ -32,9 +29,9 @@ public class Main {
 //        System.out.println(tv);
 //
 //        // -----------------------
-//
-//        Money usd = new Money(1, Currency.getInstance("USD"));
-//        System.out.println(moneyService.add(money1, usd, staticBank));
+
+        Money usd = new Money(1, Currency.getInstance("USD"));
+        System.out.println(moneyService.add(money1, usd, staticBank));
 //
 //        // -----------------------
 //
