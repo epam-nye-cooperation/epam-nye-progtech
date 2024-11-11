@@ -1,5 +1,7 @@
 package hu.nye.progtech.money;
 
+import hu.nye.progtech.money.Config.AppConfig;
+import hu.nye.progtech.money.bank.Bank;
 import hu.nye.progtech.money.bank.StaticBank;
 import hu.nye.progtech.money.domain.Money;
 import hu.nye.progtech.money.domain.Product;
@@ -14,8 +16,8 @@ public class Main {
         Money money1 = new Money(1000.0, Currency.getInstance("HUF"));
         Money money2 = new Money(2000.0, Currency.getInstance("HUF"));
         Money money3 = new Money(1000.0, Currency.getInstance("HUF"));
-        StaticBank staticBank = new StaticBank();
-        MoneyService moneyService = new MoneyServiceImpl();
+        Bank staticBank = AppConfig.staticBank();
+        MoneyService moneyService = AppConfig.moneyService();
 
 //        Money sumedMoney = moneyService.add(money1, money2, staticBank);
 //
