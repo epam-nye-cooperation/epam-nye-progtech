@@ -25,7 +25,7 @@ public class JdbcGameSavesRepositoryTest {
     private MapParser mapParser;
 
     @BeforeEach
-    public void init() {
+    public void init() throws SQLException {
         connection = Mockito.mock(Connection.class);
         mapToStringUtil = Mockito.mock(MapToStringUtil.class);
         mapParser = Mockito.mock(MapParser.class);

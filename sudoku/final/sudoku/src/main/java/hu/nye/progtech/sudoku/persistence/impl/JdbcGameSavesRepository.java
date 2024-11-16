@@ -30,10 +30,18 @@ public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseab
     private MapToStringUtil mapToStringUtil;
     private MapParser mapParser;
 
-    public JdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) {
+    public JdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) throws SQLException {
         this.connection = connection;
         this.mapToStringUtil = mapToStringUtil;
         this.mapParser = mapParser;
+        init();
+    }
+
+    private void init() throws SQLException {
+        String sql = "RUNSCRIPT FROM 'classpath:db-init.sql'";
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        }
     }
 
     @Override

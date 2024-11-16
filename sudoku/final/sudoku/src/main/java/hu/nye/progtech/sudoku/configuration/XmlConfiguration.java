@@ -16,25 +16,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class XmlConfiguration {
 
-    /*
-    @Bean
-    Marshaller marshaller() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(PersistableMapVO.class);
-
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        return marshaller;
-    }
-
-    @Bean
-    Unmarshaller unmarshaller() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(PersistableMapVO.class);
-
-        return jaxbContext.createUnmarshaller();
-    }
-     */
-
     @Bean
     Marshaller marshaller() throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(XmlMapVO.class);
