@@ -8,7 +8,8 @@ import java.sql.Statement;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
+import hu.nye.progtech.sudoku.persistence.model.GameSave;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.map.parser.MapParser;
@@ -17,21 +18,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * JDBC based implementation of {@link GameSavesRepository}.
+ * JDBC based implementation of {@link Persistence}.
  */
-public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseable {
+public class JdbcPersistence implements Persistence, AutoCloseable {
+    public static final String DBINIT  = "db-init.sql";
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcPersistence.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcGameSavesRepository.class);
-
-    static final String INSERT_STATEMENT = "INSERT INTO game_saves (id, map, fixed) VALUES (1, ?, ?);";
-    static final String DELETE_STATEMENT = "DELETE FROM game_saves WHERE id = 1;";
-    static final String SELECT_STATEMENT = "SELECT * FROM game_saves WHERE id = 1;";
+    static final String INSERT_STATEMENT = "INSERT INTO game_saves (id, map, fixed) VALUES ("+ GameSave.DEFAULT_ID +", ?, ?);";
+    static final String DELETE_STATEMENT = "DELETE FROM game_saves WHERE id = "+ GameSave.DEFAULT_ID +";";
+    static final String SELECT_STATEMENT = "SELECT * FROM game_saves WHERE id = "+ GameSave.DEFAULT_ID +";";
 
     private Connection connection;
     private MapToStringUtil mapToStringUtil;
     private MapParser mapParser;
 
-    public JdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) throws SQLException {
+    public JdbcPersistence(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) throws SQLException {
         this.connection = connection;
         this.mapToStringUtil = mapToStringUtil;
         this.mapParser = mapParser;
@@ -39,11 +40,10 @@ public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseab
     }
 
     private void init() throws SQLException {
-        String file = "db-init.sql";
-        String sql = "RUNSCRIPT FROM 'classpath:" + file + "'";
+        String sql = "RUNSCRIPT FROM 'classpath:" + DBINIT + "'";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            LOGGER.info("Ensured that the " + file + " is loaded");
+            LOGGER.info("Ensured that the " + DBINIT + " is loaded");
         }
     }
 

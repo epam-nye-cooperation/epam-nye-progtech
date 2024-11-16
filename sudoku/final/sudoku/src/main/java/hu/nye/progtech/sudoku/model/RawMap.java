@@ -1,5 +1,7 @@
 package hu.nye.progtech.sudoku.model;
 
+import jakarta.persistence.MappedSuperclass;
+
 import java.util.Objects;
 
 /**
@@ -7,10 +9,15 @@ import java.util.Objects;
  * The actual map state is stored in {@link String} values. This model class is mainly used for persist
  * a given game state.
  */
+@MappedSuperclass
 public class RawMap {
 
     private String map;
     private String fixed;
+
+    public RawMap() {
+        this(null, null);
+    }
 
     public RawMap(String map, String fixed) {
         this.map = map;

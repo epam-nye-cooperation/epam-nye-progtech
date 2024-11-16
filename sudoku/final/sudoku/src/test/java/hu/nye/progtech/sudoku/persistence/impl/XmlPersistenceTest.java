@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class XmlGameSavesRepositoryTest {
+public class XmlPersistenceTest {
 
-    private XmlGameSavesRepository underTest;
+    private XmlPersistence underTest;
 
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
@@ -23,7 +23,7 @@ public class XmlGameSavesRepositoryTest {
     public void init() {
         marshaller = Mockito.mock(Marshaller.class);
         unmarshaller = Mockito.mock(Unmarshaller.class);
-        underTest = new XmlGameSavesRepository(marshaller, unmarshaller);
+        underTest = new XmlPersistence(marshaller, unmarshaller);
     }
 
     @Test

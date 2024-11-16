@@ -14,9 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class AdvancedXmlGameSavesRepositoryTest {
+public class AdvancedXmlPersistenceTest {
 
-    private AdvancedXmlGameSavesRepository underTest;
+    private AdvancedXmlPersistence underTest;
 
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
@@ -29,7 +29,7 @@ public class AdvancedXmlGameSavesRepositoryTest {
         unmarshaller = Mockito.mock(Unmarshaller.class);
         mapVOToXmlMapVOConverter = Mockito.mock(MapVOToXmlMapVOConverter.class);
         xmlMapVOToMapVOConverter = Mockito.mock(XmlMapVOToMapVOConverter.class);
-        underTest = new AdvancedXmlGameSavesRepository(marshaller, unmarshaller, mapVOToXmlMapVOConverter, xmlMapVOToMapVOConverter);
+        underTest = new AdvancedXmlPersistence(marshaller, unmarshaller, mapVOToXmlMapVOConverter, xmlMapVOToMapVOConverter);
     }
 
     @Test

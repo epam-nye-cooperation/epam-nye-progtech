@@ -22,11 +22,13 @@ import hu.nye.progtech.sudoku.ui.MapPrinter;
 import hu.nye.progtech.sudoku.ui.PrintWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * Spring Java configuration class for generic application related Spring Beans.
  */
 @Configuration
+@EnableJpaRepositories(basePackages = "hu.nye.progtech.sudoku.persistence")
 public class ApplicationConfiguration {
 
     @Bean(initMethod = "start")

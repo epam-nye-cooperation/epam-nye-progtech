@@ -1,7 +1,7 @@
 package hu.nye.progtech.sudoku.service.command.impl;
 
 import hu.nye.progtech.sudoku.model.GameState;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
 import hu.nye.progtech.sudoku.service.command.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +14,10 @@ public class SaveCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(SaveCommand.class);
     private static final String SAVE_COMMAND = "save";
 
-    private GameSavesRepository gameSavesRepository;
+    private Persistence gameSavesRepository;
     private GameState gameState;
 
-    public SaveCommand(GameSavesRepository gameSavesRepository, GameState gameState) {
+    public SaveCommand(Persistence gameSavesRepository, GameState gameState) {
         this.gameSavesRepository = gameSavesRepository;
         this.gameState = gameState;
     }

@@ -3,7 +3,7 @@ package hu.nye.progtech.sudoku.configuration;
 import java.util.List;
 
 import hu.nye.progtech.sudoku.model.GameState;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
 import hu.nye.progtech.sudoku.service.command.Command;
 import hu.nye.progtech.sudoku.service.command.InputHandler;
 import hu.nye.progtech.sudoku.service.command.impl.DefaultCommand;
@@ -42,12 +42,12 @@ public class CommandConfiguration {
     }
 
     @Bean
-    SaveCommand saveCommand(GameSavesRepository gameSavesRepository, GameState gameState) {
+    SaveCommand saveCommand(Persistence gameSavesRepository, GameState gameState) {
         return new SaveCommand(gameSavesRepository, gameState);
     }
 
     @Bean
-    LoadCommand loadCommand(GameSavesRepository gameSavesRepository, GameState gameState) {
+    LoadCommand loadCommand(Persistence gameSavesRepository, GameState gameState) {
         return new LoadCommand(gameSavesRepository, gameState);
     }
 

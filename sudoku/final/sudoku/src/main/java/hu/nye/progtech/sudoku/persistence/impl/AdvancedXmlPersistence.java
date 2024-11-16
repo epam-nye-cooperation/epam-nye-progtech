@@ -1,7 +1,7 @@
 package hu.nye.progtech.sudoku.persistence.impl;
 
 import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
 import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.xml.converter.MapVOToXmlMapVOConverter;
@@ -12,16 +12,16 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
- * XML based implementation of {@link GameSavesRepository} with a bit advanced structuring in the resulting XML output.
+ * XML based implementation of {@link Persistence} with a bit advanced structuring in the resulting XML output.
  */
-public class AdvancedXmlGameSavesRepository extends XmlGameSavesRepository {
+public class AdvancedXmlPersistence extends XmlPersistence {
 
     private final MapVOToXmlMapVOConverter mapVOToXmlMapVOConverter;
     private final XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter;
 
-    public AdvancedXmlGameSavesRepository(Marshaller marshaller, Unmarshaller unmarshaller,
-                                          MapVOToXmlMapVOConverter mapVOToXmlMapVOConverter,
-                                          XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter) {
+    public AdvancedXmlPersistence(Marshaller marshaller, Unmarshaller unmarshaller,
+                                  MapVOToXmlMapVOConverter mapVOToXmlMapVOConverter,
+                                  XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter) {
         super(marshaller, unmarshaller);
         this.mapVOToXmlMapVOConverter = mapVOToXmlMapVOConverter;
         this.xmlMapVOToMapVOConverter = xmlMapVOToMapVOConverter;

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class JdbcGameSavesRepositoryTest {
+public class JdbcPersistenceTest {
 
-    private JdbcGameSavesRepository underTest;
+    private JdbcPersistence underTest;
 
     private Connection connection;
     private MapToStringUtil mapToStringUtil;
@@ -31,7 +31,7 @@ public class JdbcGameSavesRepositoryTest {
         Mockito.when(connection.createStatement()).thenReturn(statement);
         mapToStringUtil = Mockito.mock(MapToStringUtil.class);
         mapParser = Mockito.mock(MapParser.class);
-        underTest = new JdbcGameSavesRepository(connection, mapToStringUtil, mapParser);
+        underTest = new JdbcPersistence(connection, mapToStringUtil, mapParser);
         Mockito.verify(statement).execute(Mockito.anyString());
         Mockito.reset(connection, statement);
     }
@@ -43,7 +43,7 @@ public class JdbcGameSavesRepositoryTest {
         Statement statement = Mockito.mock(Statement.class);
         Mockito.when(connection.createStatement()).thenReturn(statement);
         PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
-        Mockito.when(connection.prepareStatement(JdbcGameSavesRepository.INSERT_STATEMENT))
+        Mockito.when(connection.prepareStatement(JdbcPersistence.INSERT_STATEMENT))
                 .thenReturn(preparedStatement);
         String mapString = "mapString";
         Mockito.when(mapToStringUtil.convertMapVoMapToString(currentMap)).thenReturn(mapString);
@@ -55,9 +55,9 @@ public class JdbcGameSavesRepositoryTest {
 
         // Then
         Mockito.verify(connection).createStatement();
-        Mockito.verify(statement).executeUpdate(JdbcGameSavesRepository.DELETE_STATEMENT);
+        Mockito.verify(statement).executeUpdate(JdbcPersistence.DELETE_STATEMENT);
         Mockito.verify(statement).close();
-        Mockito.verify(connection).prepareStatement(JdbcGameSavesRepository.INSERT_STATEMENT);
+        Mockito.verify(connection).prepareStatement(JdbcPersistence.INSERT_STATEMENT);
         Mockito.verify(mapToStringUtil).convertMapVoMapToString(currentMap);
         Mockito.verify(preparedStatement).setString(1, mapString);
         Mockito.verify(mapToStringUtil).convertMapVoFixedToString(currentMap);
@@ -101,7 +101,7 @@ public class JdbcGameSavesRepositoryTest {
         Statement statement = Mockito.mock(Statement.class);
         Mockito.when(connection.createStatement()).thenReturn(statement);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
-        Mockito.when(statement.executeQuery(JdbcGameSavesRepository.SELECT_STATEMENT)).thenReturn(resultSet);
+        Mockito.when(statement.executeQuery(JdbcPersistence.SELECT_STATEMENT)).thenReturn(resultSet);
         String mapString = "mapString";
         Mockito.when(resultSet.getString("map")).thenReturn(mapString);
         String fixedString = "fixedString";
@@ -114,7 +114,7 @@ public class JdbcGameSavesRepositoryTest {
 
         // Then
         Mockito.verify(connection).createStatement();
-        Mockito.verify(statement).executeQuery(JdbcGameSavesRepository.SELECT_STATEMENT);
+        Mockito.verify(statement).executeQuery(JdbcPersistence.SELECT_STATEMENT);
         Mockito.verify(resultSet).next();
         Mockito.verify(resultSet).getString("map");
         Mockito.verify(resultSet).getString("fixed");
@@ -145,7 +145,7 @@ public class JdbcGameSavesRepositoryTest {
         Statement statement = Mockito.mock(Statement.class);
         Mockito.when(connection.createStatement()).thenReturn(statement);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
-        Mockito.when(statement.executeQuery(JdbcGameSavesRepository.SELECT_STATEMENT)).thenReturn(resultSet);
+        Mockito.when(statement.executeQuery(JdbcPersistence.SELECT_STATEMENT)).thenReturn(resultSet);
         String mapString = "mapString";
         Mockito.when(resultSet.getString("map")).thenReturn(mapString);
         String fixedString = "fixedString";
@@ -158,7 +158,7 @@ public class JdbcGameSavesRepositoryTest {
 
         // Then
         Mockito.verify(connection).createStatement();
-        Mockito.verify(statement).executeQuery(JdbcGameSavesRepository.SELECT_STATEMENT);
+        Mockito.verify(statement).executeQuery(JdbcPersistence.SELECT_STATEMENT);
         Mockito.verify(resultSet).next();
         Mockito.verify(resultSet).getString("map");
         Mockito.verify(resultSet).getString("fixed");

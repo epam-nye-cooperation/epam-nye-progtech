@@ -3,7 +3,7 @@ package hu.nye.progtech.sudoku.persistence.impl;
 import java.io.File;
 
 import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
 import hu.nye.progtech.sudoku.persistence.xml.PersistableMapVO;
 import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
@@ -12,14 +12,14 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
- * XML based implementation of {@link GameSavesRepository}.
+ * XML based implementation of {@link Persistence}.
  */
-public class XmlGameSavesRepository implements GameSavesRepository {
+public class XmlPersistence implements Persistence {
     protected static final File SAVE = new File("target/state.xml");
     protected final Marshaller marshaller;
     protected final Unmarshaller unmarshaller;
 
-    public XmlGameSavesRepository(Marshaller marshaller, Unmarshaller unmarshaller) {
+    public XmlPersistence(Marshaller marshaller, Unmarshaller unmarshaller) {
         this.marshaller = marshaller;
         this.unmarshaller = unmarshaller;
     }

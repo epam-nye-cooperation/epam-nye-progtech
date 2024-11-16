@@ -2,7 +2,7 @@ package hu.nye.progtech.sudoku.service.command.impl;
 
 import hu.nye.progtech.sudoku.model.GameState;
 import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.persistence.Persistence;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
@@ -10,12 +10,12 @@ public class SaveCommandTest {
 
     private SaveCommand underTest;
 
-    private GameSavesRepository gameSavesRepository;
+    private Persistence gameSavesRepository;
     private GameState gameState;
 
     @BeforeEach
     public void init() {
-        gameSavesRepository = Mockito.mock(GameSavesRepository.class);
+        gameSavesRepository = Mockito.mock(Persistence.class);
         gameState = Mockito.mock(GameState.class);
         underTest = new SaveCommand(gameSavesRepository, gameState);
     }
