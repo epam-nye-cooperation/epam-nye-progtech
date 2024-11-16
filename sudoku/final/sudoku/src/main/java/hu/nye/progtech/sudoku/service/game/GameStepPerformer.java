@@ -1,6 +1,7 @@
 package hu.nye.progtech.sudoku.service.game;
 
 import hu.nye.progtech.sudoku.service.command.InputHandler;
+import hu.nye.progtech.sudoku.service.exception.GameException;
 import hu.nye.progtech.sudoku.service.input.UserInputReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,12 @@ public class GameStepPerformer {
     public void performGameStep() {
         String input = userInputReader.readInput();
         LOGGER.info("Read user input = '{}'", input);
-        inputHandler.handleInput(input);
+        try {
+            inputHandler.handleInput(input);
+        } catch(GameException ex) {
+            LOGGER.error("Failed to make step: " + ex.getMessage(), ex);
+        }
+
     }
 
 }

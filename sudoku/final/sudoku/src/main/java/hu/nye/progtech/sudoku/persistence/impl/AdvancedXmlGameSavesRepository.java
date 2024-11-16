@@ -1,17 +1,15 @@
 package hu.nye.progtech.sudoku.persistence.impl;
 
-import java.io.File;
-
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
+import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.xml.converter.MapVOToXmlMapVOConverter;
 import hu.nye.progtech.sudoku.xml.converter.XmlMapVOToMapVOConverter;
 import hu.nye.progtech.sudoku.xml.model.XmlMapVO;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * XML based implementation of {@link GameSavesRepository} with a bit advanced structuring in the resulting XML output.
@@ -36,7 +34,7 @@ public class AdvancedXmlGameSavesRepository extends XmlGameSavesRepository {
 
             marshaller.marshal(xmlMapVO, SAVE);
         } catch (JAXBException e) {
-            throw new RuntimeException("Failed to save XML" + SAVE, e);
+            throw new MapSavingException("Failed to save XML" + SAVE, e);
         }
     }
 
@@ -47,7 +45,7 @@ public class AdvancedXmlGameSavesRepository extends XmlGameSavesRepository {
 
             return xmlMapVOToMapVOConverter.convert(xmlMapVO);
         } catch (JAXBException e) {
-            throw new RuntimeException("Failed to load XML " + SAVE, e);
+            throw new MapReadingException("Failed to load XML " + SAVE, e);
         }
     }
 

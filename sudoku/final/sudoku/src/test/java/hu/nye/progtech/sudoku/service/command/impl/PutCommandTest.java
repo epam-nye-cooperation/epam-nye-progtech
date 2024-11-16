@@ -8,7 +8,7 @@ import hu.nye.progtech.sudoku.model.GameState;
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.service.command.performer.PutPerformer;
 import hu.nye.progtech.sudoku.service.exception.MapValidationException;
-import hu.nye.progtech.sudoku.service.exception.PutException;
+import hu.nye.progtech.sudoku.service.exception.GameException;
 import hu.nye.progtech.sudoku.service.validator.MapValidator;
 import hu.nye.progtech.sudoku.ui.MapPrinter;
 import hu.nye.progtech.sudoku.ui.PrintWrapper;
@@ -44,15 +44,12 @@ public class PutCommandTest {
     private MapValidator mapValidator;
     @Mock
     private MapPrinter mapPrinter;
-    @Mock
-    private PrintWrapper printWrapper;
-
     private PutCommand underTest;
 
     @BeforeEach
     public void setUp() {
         gameState = new GameState(MAP, false);
-        underTest = new PutCommand(gameState, putPerformer, mapValidator, mapPrinter, printWrapper);
+        underTest = new PutCommand(gameState, putPerformer, mapValidator, mapPrinter);
     }
 
     @Test
@@ -78,7 +75,7 @@ public class PutCommandTest {
     }
 
     @Test
-    public void testProcessShouldPerformValidPutOperation() throws PutException, MapValidationException {
+    public void testProcessShouldPerformValidPutOperation() throws GameException, MapValidationException {
         // given
         given(putPerformer.perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER)).willReturn(NEW_MAP);
 
@@ -93,36 +90,34 @@ public class PutCommandTest {
     }
 
     @Test
-    public void testProcessShouldNotUpdateGameStateWhenPutPerformingFails() throws PutException {
+    public void testProcessShouldNotUpdateGameStateWhenPutPerformingFails() throws GameException {
         // given
-        doThrow(PutException.class).when(putPerformer).perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER);
+        doThrow(GameException.class).when(putPerformer).perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER);
 
         // when
-        underTest.process(PUT_COMMAND);
+        assertThrows(GameException.class, () -> underTest.process(PUT_COMMAND));
 
         // then
         verify(putPerformer).perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER);
         verifyNoInteractions(mapValidator);
         assertEquals(MAP, gameState.getCurrentMap());
         verifyNoInteractions(mapPrinter);
-        verify(printWrapper).printLine(PUT_ERROR_MESSAGE);
     }
 
     @Test
-    public void testProcessShouldNotUpdateGameStateWhenNewMapValidationFails() throws PutException, MapValidationException {
+    public void testProcessShouldNotUpdateGameStateWhenNewMapValidationFails() throws GameException, MapValidationException {
         // given
         given(putPerformer.perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER)).willReturn(NEW_MAP);
         doThrow(MapValidationException.class).when(mapValidator).validate(NEW_MAP);
 
         // when
-        underTest.process(PUT_COMMAND);
+        assertThrows(MapValidationException.class, () -> underTest.process(PUT_COMMAND));
 
         // then
         verify(putPerformer).perform(MAP, ROW_INDEX, COLUMN_INDEX, NUMBER);
         verify(mapValidator).validate(NEW_MAP);
         assertEquals(MAP, gameState.getCurrentMap());
         verifyNoInteractions(mapPrinter);
-        verify(printWrapper).printLine(MAP_VALIDATION_ERROR_MESSAGE);
     }
 
 }

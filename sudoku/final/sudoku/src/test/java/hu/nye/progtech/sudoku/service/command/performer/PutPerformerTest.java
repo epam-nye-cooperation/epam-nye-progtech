@@ -1,7 +1,7 @@
 package hu.nye.progtech.sudoku.service.command.performer;
 
 import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.service.exception.PutException;
+import hu.nye.progtech.sudoku.service.exception.GameException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class PutPerformerTest {
     }
 
     @Test
-    public void testPerformShouldPerformPutAndReturnNewMap() throws PutException {
+    public void testPerformShouldPerformPutAndReturnNewMap() throws GameException {
         // given in setup
 
         // when
@@ -60,7 +60,7 @@ public class PutPerformerTest {
         // given in setup
 
         // when - then
-        Assertions.assertThrows(PutException.class, () -> {
+        Assertions.assertThrows(GameException.class, () -> {
             underTest.perform(INPUT_MAP_VO, TARGET_ROW_INDEX, INVALID_TARGET_COLUMN_INDEX, TARGET_NUMBER);
         });
     }

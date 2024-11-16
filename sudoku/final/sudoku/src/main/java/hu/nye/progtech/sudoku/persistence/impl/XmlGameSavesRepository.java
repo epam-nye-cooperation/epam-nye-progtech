@@ -5,11 +5,11 @@ import java.io.File;
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
 import hu.nye.progtech.sudoku.persistence.xml.PersistableMapVO;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
+import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * XML based implementation of {@link GameSavesRepository}.
@@ -33,7 +33,7 @@ public class XmlGameSavesRepository implements GameSavesRepository {
 
             marshaller.marshal(persistableMapVO, SAVE);
         } catch (JAXBException e) {
-            throw new RuntimeException("Failed to save XML" + SAVE, e);
+            throw new MapSavingException("Failed to save XML" + SAVE, e);
         }
     }
 
@@ -45,7 +45,7 @@ public class XmlGameSavesRepository implements GameSavesRepository {
             return new MapVO(persistableMapVO.getNumberOfRows(), persistableMapVO.getNumberOfColumns(),
                     persistableMapVO.getMap(), persistableMapVO.getFixed());
         } catch (JAXBException e) {
-            throw new RuntimeException("Failed to load XML" + SAVE, e);
+            throw new MapReadingException("Failed to load XML" + SAVE, e);
         }
     }
 

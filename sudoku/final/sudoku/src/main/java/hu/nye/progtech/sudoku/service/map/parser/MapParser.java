@@ -6,7 +6,10 @@ import java.util.regex.Pattern;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.InvalidColumnException;
+import hu.nye.progtech.sudoku.service.exception.InvalidRowException;
+import hu.nye.progtech.sudoku.service.exception.MapReadingException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +35,9 @@ public class MapParser {
      *
      * @param rawMap the raw representation of a map
      * @return a parsed map as a {@link MapVO} object
-     * @throws MapParsingException if the raw representation of the map was invalid
+     * @throws MapSavingException if the raw representation of the map was invalid
      */
-    public MapVO parseMap(RawMap rawMap) throws MapParsingException {
+    public MapVO parseMap(RawMap rawMap) throws MapSavingException {
         LOGGER.info("Parsing the raw map = {}", rawMap);
 
         List<String> rows = Arrays.asList(rawMap.getMap().split("\n"));
@@ -50,24 +53,24 @@ public class MapParser {
         return new MapVO(numberOfRows, numberOfColumns, map, fixed);
     }
 
-    private void checkNumberOfRows(List<String> rows) throws MapParsingException {
+    private void checkNumberOfRows(List<String> rows) throws MapSavingException {
         if (rows.size() != numberOfRows) {
-            throw new MapParsingException("Number of rows must be " + numberOfRows);
+            throw new InvalidRowException("Number of rows must be " + numberOfRows);
         }
     }
 
-    private void checkNumberOfColumns(List<String> rows) throws MapParsingException {
+    private void checkNumberOfColumns(List<String> rows) throws MapSavingException {
         for (String row : rows) {
             if (row.length() != numberOfColumns) {
-                throw new MapParsingException("Number of columns must be " + numberOfColumns);
+                throw new InvalidColumnException("Number of columns must be " + numberOfColumns);
             }
         }
     }
 
-    private void checkValues(List<String> rows) throws MapParsingException {
+    private void checkValues(List<String> rows) throws MapSavingException {
         for (String row : rows) {
             if (!Pattern.matches(VALID_ROW_REGEX, row)) {
-                throw new MapParsingException("Row contains invalid characters!");
+                throw new InvalidRowException("Row contains invalid characters!");
             }
         }
     }

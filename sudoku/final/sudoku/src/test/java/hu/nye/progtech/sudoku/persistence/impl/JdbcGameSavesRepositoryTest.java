@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.map.parser.MapParser;
 import hu.nye.progtech.sudoku.service.util.MapToStringUtil;
 import org.junit.jupiter.api.Assertions;
@@ -27,10 +27,13 @@ public class JdbcGameSavesRepositoryTest {
     @BeforeEach
     public void init() throws SQLException {
         connection = Mockito.mock(Connection.class);
+        Statement statement = Mockito.mock(Statement.class);
+        Mockito.when(connection.createStatement()).thenReturn(statement);
         mapToStringUtil = Mockito.mock(MapToStringUtil.class);
         mapParser = Mockito.mock(MapParser.class);
-
         underTest = new JdbcGameSavesRepository(connection, mapToStringUtil, mapParser);
+        Mockito.verify(statement).execute(Mockito.anyString());
+        Mockito.reset(connection, statement);
     }
 
     @Test
@@ -72,7 +75,7 @@ public class JdbcGameSavesRepositoryTest {
         Mockito.when(connection.createStatement()).thenThrow(new SQLException());
 
         // When
-        underTest.save(currentMap);
+        Assertions.assertThrows(MapSavingException.class, () -> underTest.save(currentMap));
 
         // Then
         Mockito.verify(connection).createStatement();
@@ -92,7 +95,7 @@ public class JdbcGameSavesRepositoryTest {
     }
 
     @Test
-    public void testLoadShouldReturnAMapVOWhenThereIsNoException() throws SQLException, MapParsingException {
+    public void testLoadShouldReturnAMapVOWhenThereIsNoException() throws SQLException, MapSavingException {
         // Given
         MapVO expected = Mockito.mock(MapVO.class);
         Statement statement = Mockito.mock(Statement.class);
@@ -137,7 +140,7 @@ public class JdbcGameSavesRepositoryTest {
     }
 
     @Test
-    public void testLoadShouldThrowRuntimeExceptionWhenMapParsingExceptionIsThrown() throws SQLException, MapParsingException {
+    public void testLoadShouldThrowRuntimeExceptionWhenMapParsingExceptionIsThrown() throws SQLException, MapSavingException {
         // Given
         Statement statement = Mockito.mock(Statement.class);
         Mockito.when(connection.createStatement()).thenReturn(statement);
@@ -148,7 +151,7 @@ public class JdbcGameSavesRepositoryTest {
         String fixedString = "fixedString";
         Mockito.when(resultSet.getString("fixed")).thenReturn(fixedString);
         RawMap rawMap = new RawMap(mapString, fixedString);
-        Mockito.when(mapParser.parseMap(rawMap)).thenThrow(MapParsingException.class);
+        Mockito.when(mapParser.parseMap(rawMap)).thenThrow(MapSavingException.class);
 
         // When
         Assertions.assertThrows(RuntimeException.class, () -> underTest.load());

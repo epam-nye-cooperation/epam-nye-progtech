@@ -1,7 +1,7 @@
 package hu.nye.progtech.sudoku.service.command.performer;
 
 import hu.nye.progtech.sudoku.model.MapVO;
-import hu.nye.progtech.sudoku.service.exception.PutException;
+import hu.nye.progtech.sudoku.service.exception.GameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class PutPerformer {
      * @param columnIndex the index of the column
      * @param number      the number to write into the map
      */
-    public MapVO perform(MapVO mapVO, int rowIndex, int columnIndex, int number) throws PutException {
+    public MapVO perform(MapVO mapVO, int rowIndex, int columnIndex, int number) throws GameException {
         LOGGER.info("Performing put operation with map = {}, rowIndex = {}, columnIndex = {}, number = {}",
             mapVO, rowIndex, columnIndex, number);
 
@@ -33,7 +33,7 @@ public class PutPerformer {
         if (fixed[rowIndex][columnIndex]) {
             LOGGER.warn("Can't perform put operation, as position at rowIndex = {} and columnIndex = {} is fixed",
                 rowIndex, columnIndex);
-            throw new PutException("Can't perform put on a fixed position");
+            throw new GameException("Can't perform put on a fixed position");
         }
 
         map[rowIndex][columnIndex] = number;

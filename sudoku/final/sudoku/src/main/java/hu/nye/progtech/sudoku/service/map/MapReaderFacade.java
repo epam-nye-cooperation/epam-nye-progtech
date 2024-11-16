@@ -2,7 +2,8 @@ package hu.nye.progtech.sudoku.service.map;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.GameException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.service.exception.MapValidationException;
 import hu.nye.progtech.sudoku.service.map.parser.MapParser;
@@ -37,22 +38,11 @@ public class MapReaderFacade {
      * @return a parsed map as a {@link MapVO} object
      */
     public MapVO readMap() {
-        try {
-            RawMap rawMap = mapReader.readMap();
-            MapVO mapVO = mapParser.parseMap(rawMap);
-            mapValidator.validate(mapVO);
+        RawMap rawMap = mapReader.readMap();
+        MapVO mapVO = mapParser.parseMap(rawMap);
+        mapValidator.validate(mapVO);
 
-            return mapVO;
-        } catch (MapReadingException e) {
-            LOGGER.error("Failed to read map", e);
-            throw new RuntimeException("Failed to read map");
-        } catch (MapParsingException e) {
-            LOGGER.error("Failed to parse map", e);
-            throw new RuntimeException("Failed to parse map");
-        } catch (MapValidationException e) {
-            LOGGER.error("Failed to validate map", e);
-            throw new RuntimeException("The loaded map was invalid");
-        }
+        return mapVO;
     }
 
 }

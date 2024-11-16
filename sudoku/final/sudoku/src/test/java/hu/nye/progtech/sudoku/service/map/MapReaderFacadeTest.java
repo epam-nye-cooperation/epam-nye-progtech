@@ -6,11 +6,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-import java.util.List;
-
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.exception.MapReadingException;
 import hu.nye.progtech.sudoku.service.exception.MapValidationException;
 import hu.nye.progtech.sudoku.service.map.parser.MapParser;
@@ -46,7 +44,7 @@ public class MapReaderFacadeTest {
     }
 
     @Test
-    public void testReadMapShouldReturnReadAndParsedAndValidatedMap() throws MapReadingException, MapParsingException, MapValidationException {
+    public void testReadMapShouldReturnReadAndParsedAndValidatedMap() throws MapReadingException, MapSavingException, MapValidationException {
         // given
         given(mapReader.readMap()).willReturn(RAW_MAP);
         given(mapParser.parseMap(RAW_MAP)).willReturn(MAP_VO);
@@ -73,10 +71,10 @@ public class MapReaderFacadeTest {
     }
 
     @Test
-    public void testReadMapShouldThrowRuntimeExceptionWhenParsingOfTheMapFails() throws MapReadingException, MapParsingException {
+    public void testReadMapShouldThrowRuntimeExceptionWhenParsingOfTheMapFails() throws MapReadingException, MapSavingException {
         // given
         given(mapReader.readMap()).willReturn(RAW_MAP);
-        doThrow(MapParsingException.class).when(mapParser).parseMap(RAW_MAP);
+        doThrow(MapSavingException.class).when(mapParser).parseMap(RAW_MAP);
 
         // when - then
         assertThrows(RuntimeException.class, () -> {
@@ -85,7 +83,7 @@ public class MapReaderFacadeTest {
     }
 
     @Test
-    public void testReadMapShouldThrowRuntimeExceptionWhenValidationOfTheMapFails() throws MapReadingException, MapParsingException, MapValidationException {
+    public void testReadMapShouldThrowRuntimeExceptionWhenValidationOfTheMapFails() throws MapReadingException, MapSavingException, MapValidationException {
         // given
         given(mapReader.readMap()).willReturn(RAW_MAP);
         given(mapParser.parseMap(RAW_MAP)).willReturn(MAP_VO);

@@ -37,8 +37,8 @@ public class CommandConfiguration {
 
     @Bean
     PutCommand putCommand(GameState gameState, PutPerformer putPerformer, MapValidatorComposer mapValidatorComposer,
-                                 MapPrinter mapPrinter, PrintWrapper printWrapper) {
-        return new PutCommand(gameState, putPerformer, mapValidatorComposer, mapPrinter, printWrapper);
+                                 MapPrinter mapPrinter) {
+        return new PutCommand(gameState, putPerformer, mapValidatorComposer, mapPrinter);
     }
 
     @Bean

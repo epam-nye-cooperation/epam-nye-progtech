@@ -9,7 +9,8 @@ import java.sql.Statement;
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
 import hu.nye.progtech.sudoku.persistence.GameSavesRepository;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.MapReadingException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import hu.nye.progtech.sudoku.service.map.parser.MapParser;
 import hu.nye.progtech.sudoku.service.util.MapToStringUtil;
 import org.slf4j.Logger;
@@ -38,9 +39,11 @@ public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseab
     }
 
     private void init() throws SQLException {
-        String sql = "RUNSCRIPT FROM 'classpath:db-init.sql'";
+        String file = "db-init.sql";
+        String sql = "RUNSCRIPT FROM 'classpath:" + file + "'";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
+            LOGGER.info("Ensured that the " + file + " is loaded");
         }
     }
 
@@ -50,22 +53,22 @@ public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseab
             deleteCurrentlyStoredSave();
             insertNewSave(currentMap);
         } catch (SQLException e) {
-            LOGGER.error("Unexpected exception during saving game state", e);
+            throw new MapSavingException("Unexpected exception during saving game state", e);
         }
     }
 
     @Override
     public MapVO load() {
-        RawMap rawMap = readRawMap();
         try {
+            RawMap rawMap = readRawMap();
             MapVO mapVO = mapParser.parseMap(rawMap);
             return mapVO;
-        } catch (MapParsingException e) {
-            throw new RuntimeException("Failed to parse loaded map");
+        } catch (SQLException e) {
+            throw new MapReadingException("Failed to parse loaded map", e);
         }
     }
 
-    private RawMap readRawMap() {
+    private RawMap readRawMap() throws SQLException {
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_STATEMENT);) {
 
@@ -75,8 +78,6 @@ public class JdbcGameSavesRepository implements GameSavesRepository, AutoCloseab
 
             RawMap rawMap = new RawMap(map, fixed);
             return rawMap;
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Failed to load map from DB");
         }
     }
 

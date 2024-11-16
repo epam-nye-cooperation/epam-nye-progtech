@@ -2,11 +2,11 @@ package hu.nye.progtech.sudoku.service.map.parser;
 
 import hu.nye.progtech.sudoku.model.MapVO;
 import hu.nye.progtech.sudoku.model.RawMap;
-import hu.nye.progtech.sudoku.service.exception.MapParsingException;
+import hu.nye.progtech.sudoku.service.exception.InvalidColumnException;
+import hu.nye.progtech.sudoku.service.exception.InvalidRowException;
+import hu.nye.progtech.sudoku.service.exception.MapSavingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +48,7 @@ public class MapParserTest {
     }
 
     @Test
-    public void testParseMapShouldReturnNewParsedMap() throws MapParsingException {
+    public void testParseMapShouldReturnNewParsedMap() throws MapSavingException {
         // given
         RawMap input = new RawMap(VALID_RAW_MAP, VALID_RAW_FIXED);
 
@@ -60,12 +60,12 @@ public class MapParserTest {
     }
 
     @Test
-    public void testParseMapShouldThrowMapParsingExceptionWhenThereAreNotEnoughRows() throws MapParsingException {
+    public void testParseMapShouldThrowMapParsingExceptionWhenThereAreNotEnoughRows() throws MapSavingException {
         // given in setup
         RawMap input = new RawMap(INVALID_RAW_MAP_FEW_ROWS, INVALID_RAW_FIXED_FEW_ROWS);
 
         // when - then
-        assertThrows(MapParsingException.class, () -> {
+        assertThrows(InvalidRowException.class, () -> {
             underTest.parseMap(input);
         });
     }
@@ -76,7 +76,7 @@ public class MapParserTest {
         RawMap input = new RawMap(INVALID_RAW_MAP_FEW_COLUMNS, INVALID_RAW_FIXED_FEW_COLUMNS);
 
         // when - then
-        assertThrows(MapParsingException.class, () -> {
+        assertThrows(InvalidColumnException.class, () -> {
             underTest.parseMap(input);
         });
     }
@@ -87,7 +87,7 @@ public class MapParserTest {
         RawMap input = new RawMap(INVALID_RAW_MAP_INVALID_CHARACTERS, INVALID_RAW_FIXED_INVALID_CHARACTERS);
 
         // when - then
-        assertThrows(MapParsingException.class, () -> {
+        assertThrows(InvalidRowException.class, () -> {
             underTest.parseMap(input);
         });
     }
