@@ -16,20 +16,15 @@ import org.slf4j.LoggerFactory;
 /**
  * XML based implementation of {@link GameSavesRepository} with a bit advanced structuring in the resulting XML output.
  */
-public class AdvancedXmlGameSavesRepository implements GameSavesRepository {
+public class AdvancedXmlGameSavesRepository extends XmlGameSavesRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdvancedXmlGameSavesRepository.class);
-
-    private final Marshaller marshaller;
-    private final Unmarshaller unmarshaller;
     private final MapVOToXmlMapVOConverter mapVOToXmlMapVOConverter;
     private final XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter;
 
     public AdvancedXmlGameSavesRepository(Marshaller marshaller, Unmarshaller unmarshaller,
                                           MapVOToXmlMapVOConverter mapVOToXmlMapVOConverter,
                                           XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter) {
-        this.marshaller = marshaller;
-        this.unmarshaller = unmarshaller;
+        super(marshaller, unmarshaller);
         this.mapVOToXmlMapVOConverter = mapVOToXmlMapVOConverter;
         this.xmlMapVOToMapVOConverter = xmlMapVOToMapVOConverter;
     }
@@ -39,22 +34,20 @@ public class AdvancedXmlGameSavesRepository implements GameSavesRepository {
         try {
             XmlMapVO xmlMapVO = mapVOToXmlMapVOConverter.convert(currentMap);
 
-            marshaller.marshal(xmlMapVO, new File("state.xml"));
+            marshaller.marshal(xmlMapVO, SAVE);
         } catch (JAXBException e) {
-            LOGGER.error("Error during saving state to XML", e);
-            throw new RuntimeException("Failed to save XML", e);
+            throw new RuntimeException("Failed to save XML" + SAVE, e);
         }
     }
 
     @Override
     public MapVO load() {
         try {
-            XmlMapVO xmlMapVO = (XmlMapVO) unmarshaller.unmarshal(new File("state.xml"));
+            XmlMapVO xmlMapVO = (XmlMapVO) unmarshaller.unmarshal(SAVE);
 
             return xmlMapVOToMapVOConverter.convert(xmlMapVO);
         } catch (JAXBException e) {
-            LOGGER.error("Error during loading state to XML", e);
-            throw new RuntimeException("Failed to load XML", e);
+            throw new RuntimeException("Failed to load XML " + SAVE, e);
         }
     }
 
