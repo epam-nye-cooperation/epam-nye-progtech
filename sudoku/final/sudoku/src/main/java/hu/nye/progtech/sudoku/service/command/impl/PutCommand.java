@@ -62,10 +62,10 @@ public class PutCommand implements Command {
             mapPrinter.printMap(newMap);
         } catch (PutException e) {
             LOGGER.error("Exception occurred while performing put operation", e);
-            printWrapper.printLine(PUT_ERROR_MESSAGE);
+            printWrapper.printLine(PUT_ERROR_MESSAGE+ " / " + e.getMessage());
         } catch (MapValidationException e) {
             LOGGER.error("Exception occurred while validating the updated map after put operation", e);
-            printWrapper.printLine(MAP_VALIDATION_ERROR_MESSAGE);
+            printWrapper.printLine(MAP_VALIDATION_ERROR_MESSAGE + " / " + e.getMessage());
         }
     }
 

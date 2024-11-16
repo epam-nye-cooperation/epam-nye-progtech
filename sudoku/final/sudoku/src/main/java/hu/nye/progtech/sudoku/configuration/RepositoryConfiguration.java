@@ -30,6 +30,7 @@ public class RepositoryConfiguration {
     }
 
     @Bean(destroyMethod = "close")
+    @Primary
     GameSavesRepository jdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil,
                                                 MapParser mapParser) throws SQLException {
         return new JdbcGameSavesRepository(connection, mapToStringUtil, mapParser);
@@ -41,7 +42,6 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    @Primary
     GameSavesRepository advancedXmlGameSavesRepository(Marshaller marshaller, Unmarshaller unmarshaller, MapVOToXmlMapVOConverter
             mapVOToXmlMapVOConverter, XmlMapVOToMapVOConverter xmlMapVOToMapVOConverter) {
         return new AdvancedXmlGameSavesRepository(marshaller, unmarshaller, mapVOToXmlMapVOConverter,
