@@ -11,7 +11,7 @@
             <level>WARN</level>
         </filter>
         <encoder>
-            <pattern>%-5level %logger{16} - %msg%n</pattern>
+            <pattern>%-5level %logger{16} - %msg%nopex%n</pattern>
         </encoder>
     </appender>
 
