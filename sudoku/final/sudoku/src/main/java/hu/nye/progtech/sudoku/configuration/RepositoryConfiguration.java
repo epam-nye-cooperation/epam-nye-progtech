@@ -26,11 +26,12 @@ public class RepositoryConfiguration {
 
     @Bean
     Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+        return DriverManager.getConnection("jdbc:h2:tcp://localhost/test", "sa", "");
     }
 
     @Bean(destroyMethod = "close")
-    GameSavesRepository jdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil, MapParser mapParser) {
+    GameSavesRepository jdbcGameSavesRepository(Connection connection, MapToStringUtil mapToStringUtil,
+                                                MapParser mapParser) throws SQLException {
         return new JdbcGameSavesRepository(connection, mapToStringUtil, mapParser);
     }
 
