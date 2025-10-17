@@ -4,38 +4,41 @@ import hu.nye.progtech.display.MapDisplayer;
 import hu.nye.progtech.domain.Game;
 import hu.nye.progtech.domain.GameMap;
 import hu.nye.progtech.domain.Player;
+import hu.nye.progtech.domain.RocketDestination;
 import hu.nye.progtech.domain.Ship;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("PMD.GuardLogStatement")
 public class GameService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
     private final GameStateDeciderService deciderService;
     private final MapDisplayer mapDisplayer;
+    private final RocketLauncherService launcherService;
+    private final ConsoleService consoleService;
 
-    public GameService(final GameStateDeciderService deciderService, final MapDisplayer mapDisplayer) {
+    public GameService(final GameStateDeciderService deciderService, final MapDisplayer mapDisplayer,
+                       final RocketLauncherService launcherService, final ConsoleService consoleService) {
         this.deciderService = deciderService;
         this.mapDisplayer = mapDisplayer;
+        this.launcherService = launcherService;
+        this.consoleService = consoleService;
     }
 
     public void startGame(final Game game) {
-        int counter = 0;
         final Player player = game.getPlayer();
         final GameMap gameMap = game.getMap();
         final Ship ship = gameMap.getShip();
-        LOGGER.info("Hi {}, the game has been started, this is your map: ", player.getName());
+        consoleService.printWithPlayerName("Hi {}, the game has been started, this is your map: ", player.getName());
 
         while (!deciderService.isFinished(ship)) {
-            // Kiíratjuk a map-at
             mapDisplayer.displayMap(gameMap);
-            ship.getHits()[counter] = true;
-            // Kérünk egy destination-t
-            // lövünk
-            counter++;
-        }
+            final RocketDestination rocketDestination = launcherService.getRocketDestination();
+            final boolean isHit = launcherService.isRocketHit(gameMap, rocketDestination);
 
-        LOGGER.info("Congratulation {}, there is no more ship on the map! ", player.getName());
+            if (isHit) {
+                consoleService.print("HIT!");
+            } else {
+                consoleService.print("MISSED!");
+            }
+        }
+        consoleService.printWithPlayerName("Congratulation {}, there is no more ship on the map! ", player.getName());
         mapDisplayer.displayMap(gameMap);
     }
 }

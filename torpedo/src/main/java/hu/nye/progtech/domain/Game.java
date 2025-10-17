@@ -1,6 +1,5 @@
 package hu.nye.progtech.domain;
 
-@SuppressWarnings("PMD.ShortClassName")
 public final class Game {
 
     private final GameMap gameMap;

@@ -1,22 +1,16 @@
 package hu.nye.progtech.init;
 
-import java.util.Scanner;
-
 import hu.nye.progtech.domain.Player;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import hu.nye.progtech.service.ConsoleService;
 
 public class PlayerInit {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerInit.class);
-    private final Scanner scanner;
+    private final ConsoleService consoleService;
 
-    public PlayerInit(final Scanner scanner) {
-        this.scanner = scanner;
+    public PlayerInit(final ConsoleService consoleService) {
+        this.consoleService = consoleService;
     }
 
     public Player readPlayerDetails() {
-        LOGGER.info("Please provide your name: ");
-        final String name = scanner.next();
-        return new Player(name);
+        return new Player(consoleService.readStringFromConsole("Please provide your name: "));
     }
 }

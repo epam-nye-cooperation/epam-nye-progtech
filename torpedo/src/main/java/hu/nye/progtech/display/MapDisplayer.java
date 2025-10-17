@@ -1,20 +1,32 @@
 package hu.nye.progtech.display;
 
-import hu.nye.progtech.domain.GameMap;
-import hu.nye.progtech.domain.Ship;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Set;
 
-@SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.GuardLogStatement", "PMD.UseVarargs"})
+import hu.nye.progtech.domain.GameMap;
+import hu.nye.progtech.domain.RocketDestination;
+import hu.nye.progtech.domain.Ship;
+import hu.nye.progtech.service.ConsoleService;
+
 public class MapDisplayer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MapDisplayer.class);
+    private final ConsoleService consoleService;
+
+    public MapDisplayer(final ConsoleService consoleService) {
+        this.consoleService = consoleService;
+    }
 
     public void displayMap(final GameMap gameMap) {
         final int size = gameMap.getSize();
         final Ship ship = gameMap.getShip();
         final char[][] matrix = emptySetup(size);
         addShipHitsToDisplay(ship, matrix);
-        LOGGER.info(getPrettyPrint(size, matrix));
+        addMissedDestinationToDisplay(matrix, gameMap.getMissedTargets());
+        consoleService.print(getPrettyPrint(size, matrix));
+    }
+
+    private void addMissedDestinationToDisplay(final char[][] matrix, final Set<RocketDestination> missedTargets) {
+        for (final RocketDestination rocketDestination : missedTargets) {
+            matrix[rocketDestination.getRow()][rocketDestination.getCol()] = 'O';
+        }
     }
 
     private String getPrettyPrint(final int size, final char[][] matrix) {

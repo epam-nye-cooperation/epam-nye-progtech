@@ -1,6 +1,5 @@
 package hu.nye.progtech.domain;
 
-@SuppressWarnings({"PMD.ShortClassName", "PMD.MethodReturnsInternalArray"})
 public final class Ship {
 
     private final int length;

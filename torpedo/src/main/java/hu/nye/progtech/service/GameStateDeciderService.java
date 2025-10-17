@@ -2,7 +2,6 @@ package hu.nye.progtech.service;
 
 import hu.nye.progtech.domain.Ship;
 
-@SuppressWarnings("PMD.AtLeastOneConstructor")
 public class GameStateDeciderService {
 
     public boolean isFinished(final Ship ship) {
