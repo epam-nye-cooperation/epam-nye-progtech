@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gameXml>
+    <gameMap>
+        <ship>
+            <hits>true</hits>
+            <hits>false</hits>
+            <hits>false</hits>
+            <horizontal>true</horizontal>
+            <length>3</length>
+            <startCol>0</startCol>
+            <startRow>0</startRow>
+        </ship>
+        <size>5</size>
+    </gameMap>
+    <player>
+        <name>alma</name>
+    </player>
+</gameXml>
